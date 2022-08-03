@@ -114,7 +114,7 @@ class Item extends Model{
 
     }
 
-    public function bootItem(){
+    public function searchItem(){
 
         $sql = new Sql();
         $busca = null;

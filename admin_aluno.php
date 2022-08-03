@@ -57,7 +57,7 @@ $app->post('/admin/aluno/buscar',function(){
 	$alunos->setData($_POST);
 
 	$page->setTpl("aluno",[
-		"alunos"=>$alunos->bootAluno()
+		"alunos"=>$alunos->searchAluno()
 	]);
 
 });

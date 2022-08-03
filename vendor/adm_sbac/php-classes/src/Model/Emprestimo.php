@@ -100,7 +100,7 @@ class Emprestimo extends Model{
 
     }
 
-    public function bootEmprestimo(){
+    public function searchEmprestimo(){
 
         //echo $this->getencerrados());exit;
 

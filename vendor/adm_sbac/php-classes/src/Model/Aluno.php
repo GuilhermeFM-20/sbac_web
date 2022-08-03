@@ -99,7 +99,7 @@ class Aluno extends Model{
 
     }
 
-    public function bootAluno(){
+    public function searchAluno(){
 
         $sql = new Sql();
         $busca = null;

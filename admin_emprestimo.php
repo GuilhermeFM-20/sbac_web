@@ -114,7 +114,7 @@ $app->post('/admin/emprestimo/buscar',function(){
     $page = new PageAdmin();
     
     $page->setTpl('emprestimo_item',[
-        "emprestimos"=>$empr->bootEmprestimo()
+        "emprestimos"=>$empr->searchEmprestimo()
     ]);
 
 });
@@ -132,10 +132,10 @@ $app->post('/admin/emprestimo/buscar/item',function(){
 
 	$item->setData($_POST);
 
-    //print_r($item->bootItem());exit;
+    //print_r($item->searchItem());exit;
 
 	$page->setTpl("cadastro_emprestimo_item",[
-		"itens"=>$item->bootItem()
+		"itens"=>$item->searchItem()
 	]);
 
 
@@ -154,7 +154,7 @@ $app->post('/admin/emprestimo/buscar/aluno',function(){
 	$alunos->setData($_POST);
 
 	$page->setTpl("cadastro_emprestimo_aluno",[
-		"alunos"=>$alunos->bootAluno()
+		"alunos"=>$alunos->searchAluno()
 	]);
 
 });
@@ -264,7 +264,7 @@ $app->get('/admin/emprestimo/buscar/encerrados',function(){
 	$empr->setData($_POST);
 
 	$page->setTpl("emprestimo_item",[
-		"emprestimos"=>$empr->bootEmprestimo()
+		"emprestimos"=>$empr->searchEmprestimo()
 	]);
 
 });

@@ -98,7 +98,7 @@ $app->post('/admin/item/buscar',function(){
 	$item->setData($_POST);
 
 	$page->setTpl("item",[
-		"itens"=>$item->bootItem()
+		"itens"=>$item->searchItem()
 	]);
 
 });
