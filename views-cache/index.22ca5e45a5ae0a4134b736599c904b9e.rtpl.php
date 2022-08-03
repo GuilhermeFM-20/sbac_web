@@ -1,0 +1,100 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide bg-img" style="background-image: url(/views/img/bg-img/bg-1.jpg);">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="hero-slides-content">
+                                <h4 data-animation="fadeInUp" data-delay="100ms">Laboratórios equipados</h4>
+                                <h2 data-animation="fadeInUp" data-delay="400ms">Conheça nossos <br>laboratórios e espaços</h2>
+                                <a href="about-us.html" class="btn academy-btn" data-animation="fadeInUp" data-delay="700ms">Leia mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="single-hero-slide bg-img" style="background-image: url(/views/img/bg-img/ab.jpg);">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="hero-slides-content">
+                                <h4 data-animation="fadeInUp" data-delay="100ms">Conheça nossa escola </h4>
+                                <h2 data-animation="fadeInUp" data-delay="400ms">Ensinando a <br>40 anos</h2>
+                                <a href="Ensino médio.html" class="btn academy-btn" data-animation="fadeInUp" data-delay="700ms">Leia mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Hero Slide -->
+            
+        
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Top Feature Area Start ##### -->
+    <div class="top-features-area wow fadeInUp" data-wow-delay="300ms">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="features-content">
+                        <div class="row no-gutters">
+                            <!-- Single Top Features -->
+                            <div class="col-12 col-md-4">
+                                <div class="single-top-features d-flex align-items-center justify-content-center">
+                                    <i class="icon-agenda-1"></i>
+                                    <h5><a href="https://www.facebook.com/pg/abelcoelhooficial/photos/?ref=page_internal" target="_blank">Galeria</a></h5>
+                                </div>
+                            </div>
+                            <!-- Single Top Features -->
+                            <div class="col-12 col-md-4">
+                                <div class="single-top-features d-flex align-items-center justify-content-center">
+                                    <i class="icon-assistance"></i>
+                                    <h5><a href="radio.html">Outros</a></h5>
+                                </div>
+                            </div>
+                            <!-- Single Top Features -->
+                            <div class="col-12 col-md-4">
+                                <div class="single-top-features d-flex align-items-center justify-content-center">
+                                    <i class="icon-telephone-3"></i>
+                                    <h5><a href="contatos.php">Contatos</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Top Feature Area End ##### -->
+
+    <!-- ##### Course Area Start ##### -->
+    <div class="academy-courses-area section-padding-100-0">
+            <div class="container">
+                <h1>História da nossa escola</h1><br>
+                       <div id="imgp"> <td><img src="/views/img/bg-img/prof.jpg" alt="" height="200" width="200" style="border-radius: 30px;"></div>
+                    <div id="txtp"><p>A Escola Estadual Prof. Abel Freire Coelho é uma instituição de Ensino Médio e Médio Integrado, localizada num bairro periférico urbano à rua Dr. João Marcelino, s/n, na cidade de Mossoró/RN, criada pelo Ato 7681/79 e funciona nos turnos matutino e vespertino. A escola foi construída no ano de 1979 e entrou em funcionamento em 1980. Possui uma área total de 2.388.612 m², tendo um total de 511.072m² de área construída. É dividida em 4 blocos: 3 de salas de aula e 1 administrativo. Sendo 24 salas de aula uma telessala e salas para diretoria, secretaria, arquivo, professores, biblioteca, laboratório de informática, depósito, almoxarifado, cozinha, o Grêmio, mecanografia, coordenação pedagógica, Departamento de Educação Física, cantina, artes, laboratório de Química, laboratório de Física, laboratório de Biologia; 32 banheiros e um auditório. Atende atualmente a 1.318 alunos, sendo 837 no matutino e 481 no vespertino; alunos oriundos de diferentes bairros e classes sociais.
+                        </p></div>    
+            </div>
+            <br>
+        </div>
+    <!-- ##### Course Area End ##### -->
+
+    <!-- ##### Testimonials Area Start ##### -->
+    <div class="testimonials-area section-padding-100 bg-img bg-overlay" style="background-image: url(/views/img/bg-img/bg-2.jpg);">
+        <div class="container">
+           
+        </div>
+    </div>
+    <!-- ##### Testimonials Area End ##### -->
+
+    <!-- ##### Top Popular Courses Area Start ##### -->
+
+    <!-- ##### Top Popular Courses Area End ##### -->
+
+

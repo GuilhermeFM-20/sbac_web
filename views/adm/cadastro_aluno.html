@@ -1,0 +1,102 @@
+
+
+<!-- Content Wrapper. Contains page content -->
+<script>
+
+    function verifica_matricula(){
+
+        var matr = document.getElementById('matricula').value;
+        
+        var frame = document.getElementById('frame_matricula');
+
+        frame.setAttribute('src','/admin/aluno/cadastro/verifica/'+matr);
+
+        alert(num);
+
+    }
+
+
+</script>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Cadastro de Alunos
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><a href="/admin/aluno">Alunos</a></li>
+        <li class="active">Cadastrar Aluno</li>
+      </ol>
+    </section>
+    
+    <iframe src="" id="frame_matricula" style="display: none;"></iframe>
+    <!-- Main content -->
+    <section class="content" >
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-success">
+                <div class="box-header with-border">
+                <h3 class="box-title">Novo Aluno</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+            <form role="form" action="/admin/cadastra/aluno" method="post">
+
+                        <div class="box-body" >
+
+                                <div class="campos_form">
+                                    <div class="form-group">
+                                    <label for="desproduct">Nome</label><br>
+                                    <input type="text" class="form-control" id="nomr" name="nome" placeholder="Digite o nome" required>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="vlprice">Matrícula</label><br>
+                                    <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula escolar" onchange="verifica_matricula()" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="campos_form">
+                                    <div class="form-group">
+                                    <label for="vlwidth">Telefone</label>
+                                    <input type="text" class="form-control" id="telefone" name="telefone"  placeholder="(00) 00000-0000" required>
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="vlheight">Turma</label>
+                                    <input type="text" class="form-control" id="turma" name="turma" placeholder="Digite a turma e ano"  required>
+                                    </div>
+                                </div>
+
+                                <div class="campos_form">
+                                    <div class="form-group">
+                                        <label>Sexo</label>
+                                        <select class="form-control" name="sexo">
+                                        <option>Masculino</option>
+                                        <option>Feminino</option>
+                                        </select>
+                                        </div>
+                                    <div class="form-group">
+                                    <label for="desurl">E-mail</label>
+                                    <input type="mail" class="form-control" id="email" name="email" name="vlheight" placeholder="Digite o email para contato" required>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- /.box-body -->
+                        
+                        
+                    </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <a href="/admin/aluno"><button type="button" id="btn-sb" class="btn btn-primary">Voltar</button></a>
+                    <button type="submit" id="btn-sb" class="btn btn-success">Cadastrar</button>
+                </div>
+            </form>
+    </section>
+    
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->

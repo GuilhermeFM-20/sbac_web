@@ -1,0 +1,9 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <img src="/views/img/bib.png" style="margin-left: 30%;">
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
