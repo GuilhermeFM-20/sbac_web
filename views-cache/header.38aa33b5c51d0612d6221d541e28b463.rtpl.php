@@ -36,32 +36,38 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 
     <style>
-    #row-grid{
+    #row-grid-scroll{
         font-family: "Montserrat", sans-serif;
         font-size: 14px;
     }
 
-    #row-grid::-webkit-scrollbar {
+    #row-grid-scroll::-webkit-scrollbar {
         width: 13px;
         background: #e9ebff;
     }
 
-    #row-grid::-webkit-scrollbar-thumb {
+    #row-grid-scroll::-webkit-scrollbar-thumb {
         background: #1b2cc1;
         border-radius: 10px;
     }
-
-    #row-grid{
-      overflow-y: scroll; 
-      height:500px;
-    } 
-
-    #row-grid{
-      overflow-y: scroll; 
-      height:374px;
+    #row-grid-scroll{
+      overflow-y: scroll;
+      height:350px;
     }
+
+    #row-grid{
+      /* overflow-y: scroll;  */
+      height:70%;
+    } 
     
-    
+    #row-pages{
+
+      height: 5px;
+
+      position: relative;
+
+    }
+
 
     .campos_form{
       display: inline-block;
@@ -77,6 +83,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     .form-group{
       display: inline-block;
       width: 49%;
+    }
+    .form-group-text{
+      width: 99%;
+      margin-left: 10px;
     }
     #btn-sb{
       width:14%;
@@ -135,19 +145,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     #foto_liv{
 
-      width: 10%;
-
-    }
-    #foto_liv:hover{
-
-    width: 60%;
+      width: 10px;
 
     }
 
     #foto_liv_item{
 
-    width: 87px;
+    width: 35px;
 
+    }
+
+    #sidebar-toggle:hover{
+
+      background-color: #074ee7;
+
+    }
+
+    .col-md-12{
+      
+      height: 10%;
+      
     }
 
     
@@ -216,25 +233,8 @@ desired effect
 -->
 <body class="hold-transition skin-blue sidebar-mini" style=" overflow: hidden;">
 
-  <div id="exampleModalLive" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content" id="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLiveLabel">Título do modal</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Aêêê! Você tá vendo esse texto, dentro do modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+ 
+  
   
   <div class="wrapper">
 
@@ -242,7 +242,7 @@ desired effect
   <header class="main-header" >
 
     <!-- Logo -->
-    <a href="../admin/index2.html" class="logo" style="background-color:#2952ac">
+    <a href="../admin/index2.html" class="logo" style="background-color:#183f95">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       
 
@@ -254,7 +254,7 @@ desired effect
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation" style="background-color:#182ad2;">
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" id="sidebar-toggle" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
       <!-- Navbar Right Menu -->
@@ -395,7 +395,7 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer" style="background-color: #d5e6f0;">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a href="/admin/logout" class="btn btn-default btn-flat">Sair</a>
@@ -429,7 +429,7 @@ desired effect
       </div>
 
       <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
+      <!-- <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -437,7 +437,7 @@ desired effect
                 </button>
               </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
@@ -445,25 +445,25 @@ desired effect
         <li class="header">Menus</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>Cadastros</span>
+          <!-- <a href="#"><i class="fa fa-users"></i> <span>Cadastros</span> -->
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/aluno">Alunos</a></li>
-            <li><a href="/admin/item">Livros</a></li>
-          </ul>
+          <!-- <ul class="treeview-menu"> -->
+            <li><a href="/admin/busca/aluno"><i class="fa fa-users"></i>Alunos</a></li>
+            <li><a href="/admin/item"><i class="fa fa-book"></i>Livros</a></li>
+          <!-- </ul> -->
         </li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-book"></i> <span>Processos</span>
+          <!-- <a href="#"><i class="fa fa-book"></i> <span>Processos</span> -->
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="/admin/emprestimo">Empréstimo</a></li>
-          </ul>
+          <!-- <ul class="treeview-menu"> -->
+            <li><a href="/admin/emprestimo"><i class="fa fa-exchange"></i>Empréstimo</a></li>
+          <!-- </ul> -->
         </li>
         <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
@@ -482,3 +482,11 @@ desired effect
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <?php if( isset($_GET["erro"]) ){ ?>
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-ban"></i> Alerta!</h4>
+          <?php echo htmlspecialchars( $_GET["erro"], ENT_COMPAT, 'UTF-8', FALSE ); ?>  
+      </div>
+  <?php } ?>

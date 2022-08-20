@@ -10,19 +10,73 @@ use \SBAC\PageAdmin;
 
 
 $app->get('/admin/emprestimo',function(){
+	
 
-    User::verifyLogin();
+	User::verifyLogin();
 
-    $page = new PageAdmin();
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
-    $empr = Emprestimo::listAll();
+	$empr = new Emprestimo();
 
-    //print_r($empr);exit;
+	$pagination = $empr->getPages($page,4);
 
-    $page->setTpl('emprestimo_item',[
-        "emprestimos"=>$empr
-    ]);
-    
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			"link"=>'page='.$i,
+			"page"=>$i
+
+		]);
+
+	}
+
+	$page = new PageAdmin();
+
+	$page->setTpl('emprestimo_item',[
+		"emprestimos"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
+	]);
+
+});
+
+$app->get('/admin/busca/emprestimo',function(){
+
+	//print_r($_POST);exit;
+
+
+	User::verifyLogin();
+
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+
+	$empr = new Emprestimo();
+
+	$empr->setData($_GET);
+
+	$pagination = $empr->searchItens($page,4);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
+	$page = new PageAdmin();
+	
+		
+	$page->setTpl("emprestimo_item",[
+		"emprestimos"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
+	]);
+		
+	
+
 });
 
 $app->get('/admin/cadastro/emprestimo/item',function(){
@@ -39,18 +93,55 @@ $app->get('/admin/cadastro/emprestimo/item',function(){
 
 });
 
+// $app->get('/admin/emprestimo/item/:item_id',function($item_id){
+
+//     User::verifyLogin();
+
+//     $page = new PageAdmin();
+
+//     $alunos = Aluno::listAll();
+
+//     $page->setTpl('cadastro_emprestimo_aluno',[
+//         "alunos"=>$alunos,
+//         "item"=>$item_id
+//     ]);
+
+// });
+
 $app->get('/admin/emprestimo/item/:item_id',function($item_id){
 
-    User::verifyLogin();
+	//print_r($_POST);exit;
 
-    $page = new PageAdmin();
+	User::verifyLogin();
 
-    $alunos = Aluno::listAll();
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
-    $page->setTpl('cadastro_emprestimo_aluno',[
-        "alunos"=>$alunos,
+	$aluno = new Aluno();
+
+	$aluno->setData($_GET);
+
+	$pagination = $aluno->searchAluno($page,6);
+
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
+	$page = new PageAdmin();
+
+		
+    $page->setTpl("cadastro_emprestimo_aluno",[
+        "alunos"=>$pagination['data'],
+        "pages"=>$pages,
+        "full_pages"=>count($pages),
         "item"=>$item_id
     ]);
+		
 
 });
 
@@ -101,43 +192,81 @@ $app->get('/admin/cadastro/emprestimo/aluno/:laitor_id/:item_id/:veri',function(
 
 });
 
-$app->post('/admin/emprestimo/buscar',function(){
+// $app->post('/admin/emprestimo/buscar',function(){
 
-    //print_r($_POST);exit;
+//     //print_r($_POST);exit;
         
-    User::verifyLogin();
+//     User::verifyLogin();
 
-    $empr = new Emprestimo();
+//     $empr = new Emprestimo();
 
-    $empr->setData($_POST);
+//     $empr->setData($_POST);
 
-    $page = new PageAdmin();
+//     $page = new PageAdmin();
     
-    $page->setTpl('emprestimo_item',[
-        "emprestimos"=>$empr->searchEmprestimo()
-    ]);
+//     $page->setTpl('emprestimo_item',[
+//         "emprestimos"=>$empr->searchEmprestimo()
+//     ]);
 
-});
+// });
 
 
-$app->post('/admin/emprestimo/buscar/item',function(){
+// $app->post('/admin/emprestimo/buscar/item',function(){
+
+// 	//print_r($_POST);exit;
+
+//     User::verifyLogin();
+
+// 	$item = new Item();
+
+// 	$page = new PageAdmin();
+
+// 	$item->setData($_POST);
+
+//     //print_r($item->searchItem());exit;
+
+// 	$page->setTpl("cadastro_emprestimo_item",[
+// 		"itens"=>$item->searchItem()
+// 	]);
+
+
+// });
+
+$app->get('/admin/emprestimo/buscar/item',function(){
 
 	//print_r($_POST);exit;
 
-    User::verifyLogin();
+
+	User::verifyLogin();
+
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
 
 	$item = new Item();
 
+	$item->setData($_GET);
+
+	$pagination = $item->searchItem($page,3);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
 	$page = new PageAdmin();
-
-	$item->setData($_POST);
-
-    //print_r($item->searchItem());exit;
-
+	
+		
 	$page->setTpl("cadastro_emprestimo_item",[
-		"itens"=>$item->searchItem()
+		"itens"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
 	]);
-
+		
+	
 
 });
 
@@ -221,7 +350,7 @@ $app->get('/admin/renovacao/:empr_id',function($empr_id){
 
 $app->post('/admin/renovacao/item',function(){
 
-   // print_r($_POST);exit;
+   //print_r($_POST);exit;
 
     User::verifyLogin();
 
@@ -249,23 +378,63 @@ $app->get('/admin/emprestimo/:id_empr/delete',function($empr_id){
 
 });
 
+// $app->get('/admin/emprestimo/buscar/encerrados',function(){
+
+// 	//print_r($_POST);exit;
+
+//     $_GET['encerrados'] = 'Sim';
+
+//     User::verifyLogin();
+
+// 	$empr = new Emprestimo();
+
+// 	$page = new PageAdmin();
+
+// 	$empr->setData($_GET);
+
+// 	$page->setTpl("emprestimo_item",[
+// 		"emprestimos"=>$empr->searchEmprestimo()
+// 	]);
+
+// });
+
 $app->get('/admin/emprestimo/buscar/encerrados',function(){
 
 	//print_r($_POST);exit;
 
-    $_POST['encerrados'] = 'Sim';
+	$_GET['encerrados'] = 'Sim';
 
-    User::verifyLogin();
+	User::verifyLogin();
+
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
 
 	$empr = new Emprestimo();
 
+	$empr->setData($_GET);
+
+	$pagination = $empr->searchItens($page,4);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
 	$page = new PageAdmin();
-
-	$empr->setData($_POST);
-
+	
+		
 	$page->setTpl("emprestimo_item",[
-		"emprestimos"=>$empr->searchEmprestimo()
+		"emprestimos"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
 	]);
+		
+	
 
 });
+
 

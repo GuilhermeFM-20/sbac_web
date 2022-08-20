@@ -129,6 +129,11 @@
                                         <input type="text" class="form-control" id="foto" name="foto"  placeholder="Adicione a URL de uma foto" required>
                                         </div>
                                 </div>
+                                <div class="form-group-text">
+                                        <label for="foto">Descrição</label>
+                                        <textarea class="form-control" rows="3" id="foto" name="foto"  placeholder="Adicione a URL de uma foto" required></textarea>
+                                    
+                                </div>
                         </div>
                         <!-- /.box-body -->
                         

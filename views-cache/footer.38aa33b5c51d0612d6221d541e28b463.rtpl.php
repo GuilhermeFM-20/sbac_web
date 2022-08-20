@@ -92,7 +92,9 @@
 <script src="/views/adm/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/views/adm/admin/dist/js/app.min.js"></script>
-
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

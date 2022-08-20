@@ -11,16 +11,73 @@ use \SBAC\PageAdmin;
 // <---- Rotas do cadastro de itens ---->
 
 $app->get('/admin/item',function(){
+	
+	
 
 	User::verifyLogin();
 
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+	$item = new Item();
+
+	$pagination = $item->getPages($page,4);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			"link"=>'page='.$i,
+			"page"=>$i
+
+		]);
+
+	}
+
 	$page = new PageAdmin();
 
-	$item = Item::listAll();
-
 	$page->setTpl('item',[
-		"itens"=>$item
+		"itens"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
 	]);
+
+});
+
+$app->get('/admin/busca/item',function(){
+
+	//print_r($_POST);exit;
+
+
+	User::verifyLogin();
+
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+
+	$item = new Item();
+
+	$item->setData($_GET);
+
+	$pagination = $item->searchItem($page,4);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
+	$page = new PageAdmin();
+	
+		
+	$page->setTpl("item",[
+		"itens"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
+	]);
+		
+	
 
 });
 
@@ -66,9 +123,9 @@ $app->get('/admin/item/cadastro/verifica/:cod_tomb',function($cod_tomb){
 
 	User::verifyLogin();
 
-	$aluno = new Item();
+	$item = new Item();
 
-	$num = $aluno->verifyCodTomb($cod_tomb);
+	$num = $item->verifyCodTomb($cod_tomb);
 
 	 echo "<script> 
 
@@ -81,27 +138,11 @@ $app->get('/admin/item/cadastro/verifica/:cod_tomb',function($cod_tomb){
 		}
 	 </script>";
 
-	//print_r($aluno->getValues());
+	//print_r($item->getValues());
 
 });
 
-$app->post('/admin/item/buscar',function(){
 
-	//print_r($_POST);exit;
-
-	User::verifyLogin();
-
-	$item = new Item();
-
-	$page = new PageAdmin();
-
-	$item->setData($_POST);
-
-	$page->setTpl("item",[
-		"itens"=>$item->searchItem()
-	]);
-
-});
 
 $app->get('/admin/item/:item_id',function($item_id){
 
@@ -112,7 +153,7 @@ $app->get('/admin/item/:item_id',function($item_id){
 	$item->get((int)$item_id);
 
 	$page = new PageAdmin();
-
+	
 	$page->setTpl('modifica_item',[
 		"itens"=>$item->getValues()
 	]);
@@ -127,13 +168,13 @@ $app->post('/admin/item/:item_id',function($item_id){
 
 	User::verifyLogin();
 
-	$aluno = new Item();
+	$item = new Item();
 
-	$aluno->get((int)$item_id);
+	$item->get((int)$item_id);
 
-	$aluno->setData($_POST);
+	$item->setData($_POST);
 
-	$aluno->update((int)$item_id);
+	$item->update((int)$item_id);
 
 	header('Location: /admin/item');
 	
@@ -169,6 +210,7 @@ $app->get('/admin/cadastro/item/net/:livro',function($livro){
             "origem"=>$data['items'][0]['saleInfo']['country'],
             "editora"=>$data['items'][0]['volumeInfo']['publisher'],
             "data_publ"=>$data['items'][0]['volumeInfo']['publishedDate'],
+			"descricao"=>$data['items'][0]['volumeInfo']['description'],
             "foto"=>$data['items'][0]['volumeInfo']['imageLinks']['thumbnail']
 
         );
@@ -181,7 +223,7 @@ $app->get('/admin/cadastro/item/net/:livro',function($livro){
 		"livros"=>$livros
 	]);
 
-	//print_r($aluno->getValues());
+	//print_r($item->getValues());
 
 });
 
@@ -205,6 +247,8 @@ $app->post('/admin/item/cadastro/buscar',function(){
 
 
     $data = json_decode($response, true);
+
+	//print_r($data);exit;
     
 
 		for($i = 0; $i < count($data['items']); $i++){		
@@ -224,6 +268,9 @@ $app->post('/admin/item/cadastro/buscar',function(){
 			if(!array_key_exists("thumbnail",$data['items'][$i]['volumeInfo']['imageLinks'])){
 				continue;
 			}
+			if(!array_key_exists("description",$data['items'][$i]['volumeInfo'])){
+				continue;
+			}
 			if(!array_key_exists("authors",$data['items'][$i]['volumeInfo'])){
 				continue;
 			}
@@ -236,7 +283,7 @@ $app->post('/admin/item/cadastro/buscar',function(){
 				"editora"=>$data['items'][$i]['volumeInfo']['publisher'],
 				"data_publ"=>$data['items'][$i]['volumeInfo']['publishedDate'],
 				"foto"=>$data['items'][$i]['volumeInfo']['imageLinks']['thumbnail']
-
+			
 			);
 		
 		}

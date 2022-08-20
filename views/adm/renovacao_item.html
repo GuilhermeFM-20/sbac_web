@@ -50,12 +50,21 @@
 
                                 </div>
                                 
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                 <label for="data_devol">Data de Devolução</label>
                                 <input type="hidden" name="empr_id" value="{$empr.id_emp}">
-                                <input type="text" class="form-control" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
-                                </div>
-                                
+                                <input type="text" class="form-control"  data-inputmask="'alias': 'dd/mm/yyyy'" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
+                                </div> -->
+                                <div class="form-group">
+                                    <label>Date masks:</label>
+                                    <div class="input-group">
+                                    <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                    </div>
+                                    
+                                    </div>
 
                         </div>
                         <!-- /.box-body -->
@@ -74,4 +83,6 @@
     
     <!-- /.content -->
     </div>
+
+    
     <!-- /.content-wrapper -->

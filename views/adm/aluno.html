@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
@@ -19,15 +19,15 @@
             <h4><b>Buscar Alunos</b></h4>
             <!-- <a href="/admin/cadastro/aluno" style="width:14%;" class="btn btn-success">Cadastrar Aluno</a> -->
           </div>  
-              <form role="form" action="/admin/aluno/buscar" method="post">
+              <form role="form" action="/admin/busca/aluno" method="get">
                   <div class="campos_form" >
                     <div class="form-group">
                     <label for="desproduct">Nome</label><br>
-                    <input type="text" class="form-control" id="desproduct" name="nome" placeholder="Digite o nome">
+                    <input type="text" class="form-control" id="desproduct" name="nome" placeholder="Digite o nome" {if="isset($_GET[nome])"}value="{$_GET[nome]}"{/if}>
                     </div>
                     <div class="form-group">
                     <label for="vlprice">Matrícula</label><br>
-                    <input type="value" class="form-control" id="vlprice" name="matricula" placeholder="Digite a matrícula escolar">
+                    <input type="value" class="form-control" id="vlprice" name="matricula" placeholder="Digite a matrícula escolar" {if="isset($_GET[matricula])"}value="{$_GET[matricula]}"{/if}>
                     </div>
                   </div>
 
@@ -89,23 +89,48 @@
             </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-md-12">
-          <div class="product-pagination text-center">
-              <nav>
-                  <ul class="pagination">
-                  {loop="$pages"}
-                  <li><a href="{$value.link}">{$value.page}</a></li>
-                  {/loop}
-                  </ul>
-              </nav>                        
+
+      <div class="row" id="row-pages">
+          <div class="col-md-12">
+              <div class="product-pagination text-center">
+                  <nav class="nav-pages">
+                      <ul class="pagination">
+
+                            
+                            {loop="$pages"}
+
+                                  {if="isset($_GET['page']) && $_GET['page'] == $value.page"}
+
+                                      {if="isset($_GET[nome]) && isset($_GET[matricula]) "}
+                                        <li><a href="?nome={$_GET[nome]}&matricula={$_GET[matricula]}&{$value.link}" style="background-color: #E7E7E7;" >{$value.page}</a></li>
+                                      {else}
+                                        <li><a href="/admin/busca/aluno?{$value.link}" style="background-color: #E7E7E7;"  >{$value.page}</a></li>
+                                      {/if}
+
+                                  {else}
+
+                                      {if="isset($_GET[nome]) && isset($_GET[matricula]) "}
+                                        <li><a href="?nome={$_GET[nome]}&matricula={$_GET[matricula]}&{$value.link}">{$value.page}</a></li>
+                                      {else}
+                                        <li><a href="/admin/busca/aluno?{$value.link}">{$value.page}</a></li>
+                                      {/if}
+
+                                  {/if}
+                              
+                            {/loop}
+                            
+                        
+                      </ul>
+                  </nav>                        
+              </div>
           </div>
-      </div>
-    </div> -->
-  
+        </div>
+    
+
   </section>
 
   
   <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  
+  

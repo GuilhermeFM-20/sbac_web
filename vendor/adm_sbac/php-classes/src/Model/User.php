@@ -63,7 +63,9 @@ class User extends Model {
 
         if(count($results) === 0){
 
-            throw new \Exception("Usuário inexistente ou senha inválida.");
+            header("Location: /admin/login?verify_login=1");
+            exit;
+          // throw new \Exception("Usuário inexistente ou senha inválida.");
 
         }
 
@@ -82,18 +84,25 @@ class User extends Model {
 
             $_SESSION[User::SESSION] = $user->getValues();
 
-            return $user;
+            //return $user;
+
+            header("Location: /admin");
+            
+
 
         }else{
 
-        
-            throw new \Exception("Usuário inexistente ou senha inválida.");
-            //header("Location: /admin/login");
+            
+           // throw new \Exception("Usuário inexistente ou senha inválida.");
+            header("Location: /admin/login?verify_login=1");
+            
 
             // return "Usuário inexistente ou senha inválida.";
             // header("Location: /admin/login");
 
         }
+
+        exit;
 
     }
 

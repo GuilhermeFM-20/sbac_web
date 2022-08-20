@@ -39,32 +39,33 @@
               <h4><b>Buscar Empréstimo</b></h4>
               <!-- <a href="/admin/cadastro/aluno" style="width:14%;" class="btn btn-success">Cadastrar Aluno</a> -->
             </div>  
-                <form role="form" action="/admin/emprestimo/buscar" method="post">
+                <form role="form" action="/admin/busca/emprestimo" method="get">
                     <div class="campos_form" >
 
                       <div class="form-group" style="width: 20%;">
                         <label for="titulo">Título</label><br>
-                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título">
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" <?php if( isset($_GET["titulo"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="cod_tomb">Cód Tombamento</label><br>
-                        <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código de tombamento">
+                        <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código de tombamento" <?php if( isset($_GET["cod_tomb"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="nome">Nome do Aluno</label><br>
-                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno">
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno" <?php if( isset($_GET["nome"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="matricula">Matrícula</label><br>
-                        <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula">
+                        <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula" <?php if( isset($_GET["matricula"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
 
                       <div class="form-group"style="width: 14%;">
                         <label for="matricula">Encerrados</label><br>
                         <select name="encerrados" class="form-control" id="encerrados">
+                          <option value=""></option>
                           <option value="Nao">Não</option>
                           <option value="Sim">Sim</option>
                         </select>
@@ -74,7 +75,7 @@
   
                     <div class="box-footer">
                       <button type="submit" id="btn-sb" class="btn btn-primary">Buscar</button>
-                      <a href="/admin/cadastro/emprestimo/item" id="btn-sb"  class="btn btn-success">Cadastrar</a>
+                      <a href="/admin/emprestimo/buscar/item" id="btn-sb"  class="btn btn-success">Cadastrar</a>
                     </div>
                   </form>
                 <!-- /.box-body -->
@@ -93,7 +94,7 @@
         <div class="col-md-12">
           <div class="box box-primary">
                  
-                <div class="box-body no-padding" id="row-grid" style=" height:374px;">
+                <div class="box-body no-padding" id="row-grid" style=" height:71%;">
                   <table class="table table-striped" style="border-width:1px;">
                         <thead>
                           <tr>
@@ -118,12 +119,13 @@
                             <td><?php echo htmlspecialchars( $value1["dat_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["dat_dev"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td>
+                              <!-- <a href="/admin/devolucao_email/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-success btn-xs" title="Email Devolução"><i class="fa fa-calendar-plus-o"></i></a> -->
                               <?php if( $value1["status_devo"] == 0  ){ ?>
                               <a href="/admin/renovacao/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-success btn-xs" title="Renovação"><i class="fa fa-calendar-plus-o"></i></a>
                               <?php } ?>
 
                               <?php if( $value1["status_devo"] == 0  ){ ?>
-                              <a href="/admin/devolucao/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa fa-sign-in"></i></a> 
+                              <a href="/admin/devolucao/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa  fa-dropbox"></i></a> 
                               <?php } ?>
                               <a href="/admin/emprestimo/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                             </td>
@@ -137,19 +139,41 @@
               </div>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row" id="row-pages">
         <div class="col-md-12">
             <div class="product-pagination text-center">
-                <nav>
+                <nav class="nav-pages">
                     <ul class="pagination">
-                    <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                    <li><a href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
-                    <?php } ?>
+
+                          
+                          <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+
+                                <?php if( isset($_GET['page']) && $_GET['page'] == $value1["page"] ){ ?>
+
+                                    <?php if( isset($_GET["nome"]) && isset($_GET["matricula"]) && isset($_GET["titulo"]) && isset($_GET["cod_tomb"]) && isset($_GET["encerrados"]) ){ ?>
+                                      <li><a href="?titulo=<?php echo htmlspecialchars( $_GET["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&cod_tomb=<?php echo htmlspecialchars( $_GET["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&nome=<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&matricula=<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="background-color: #E7E7E7;" ><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php }else{ ?>
+                                      <li><a href="/admin/busca/emprestimo?<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="background-color: #E7E7E7;"  ><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php } ?>
+
+                                <?php }else{ ?>
+
+                                    <?php if( isset($_GET["nome"]) && isset($_GET["matricula"]) && isset($_GET["titulo"]) && isset($_GET["cod_tomb"]) && isset($_GET["encerrados"]) ){ ?>
+                                      <li><a href="?titulo=<?php echo htmlspecialchars( $_GET["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&cod_tomb=<?php echo htmlspecialchars( $_GET["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&nome=<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&matricula=<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php }else{ ?>
+                                      <li><a href="/admin/busca/emprestimo?<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php } ?>
+
+                                <?php } ?>
+                            
+                          <?php } ?>
+                          
+                      
                     </ul>
                 </nav>                        
             </div>
         </div>
-      </div> -->
+      </div>
     
     </section>
   

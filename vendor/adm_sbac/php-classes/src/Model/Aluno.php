@@ -99,26 +99,6 @@ class Aluno extends Model{
 
     }
 
-    public function searchAluno(){
-
-        $sql = new Sql();
-        $busca = null;
-
-        if($this->getnome()){
-
-            $busca .= " AND nome_leitor LIKE '%".trim($this->getnome())."%'";
-
-        }
-        
-        if($this->getmatricula()){
-
-            $busca .= " AND matricula_leitor = '".$this->getmatricula()."'";
-
-        }
-
-        return $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 $busca ORDER BY leitor_id");
-
-    }
 
     public function verifyMatricula($matricula){
 
@@ -136,12 +116,47 @@ class Aluno extends Model{
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT COUNT(*) FROM leitor LIMIT $start, $alunosForPages");
+        $results = $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 LIMIT $start, $alunosForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM leitor WHERE status_leitor = 1 ");
 
         return [
             "data"=>$results,
             "total"=>(int)$resultTotal[0]['nrtotal'],
-            "pages"=>ceil($resultTotal[0]['nrtotal'] / $alunosForPages)
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $alunosForPages) + 1
+        ];
+
+    }
+
+    public function searchAluno($page = 1, $alunosForPages = 6){
+
+
+        $start = ($page - 1) * $alunosForPages;
+
+        $sql = new Sql();
+
+        $busca = null;
+
+        if($this->getnome()){
+
+            $busca .= " AND nome_leitor LIKE '%".trim($this->getnome())."%'";
+
+        }
+        
+        if($this->getmatricula()){
+
+            $busca .= " AND matricula_leitor = '".$this->getmatricula()."'";
+
+        }
+
+        $results =  $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 $busca LIMIT $start,$alunosForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM leitor WHERE status_leitor = 1  $busca");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $alunosForPages) + 1
         ];
 
     }

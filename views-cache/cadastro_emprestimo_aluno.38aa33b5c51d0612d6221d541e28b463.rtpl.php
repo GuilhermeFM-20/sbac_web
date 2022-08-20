@@ -24,15 +24,15 @@
               <h4><b>Buscar Alunos</b></h4>
               <!-- <a href="/admin/cadastro/aluno" style="width:14%;" class="btn btn-success">Cadastrar Aluno</a> -->
             </div>  
-                <form role="form" action="/admin/emprestimo/buscar/aluno" method="post">
+                <form role="form" action="/admin/emprestimo/item/<?php echo htmlspecialchars( $item, ENT_COMPAT, 'UTF-8', FALSE ); ?>" method="get">
                     <div class="campos_form" >
                       <div class="form-group">
                       <label for="nome">Nome</label><br>
-                      <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome">
+                      <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome" <?php if( isset($_GET["nome"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?> >
                       </div>
                       <div class="form-group">
                       <label for="matricula">Matrícula</label><br>
-                      <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula escolar">
+                      <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula escolar" <?php if( isset($_GET["matricula"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
                     </div>
   
@@ -56,7 +56,7 @@
         <div class="col-md-12">
           <div class="box box-primary">
                  
-                <div class="box-body no-padding" id="row-grid" style=" height:347px;">
+                <div class="box-body no-padding" id="row-grid" >
                   <table class="table table-striped" style="border-width:1px;" >
                         <thead>
                           <tr>
@@ -91,19 +91,41 @@
               </div>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row" id="row-pages">
         <div class="col-md-12">
             <div class="product-pagination text-center">
-                <nav>
+                <nav class="nav-pages">
                     <ul class="pagination">
-                    <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
-                    <li><a href="<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
-                    <?php } ?>
+
+                          
+                          <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+
+                                <?php if( isset($_GET['page']) && $_GET['page'] == $value1["page"] ){ ?>
+
+                                    <?php if( isset($_GET["nome"]) && isset($_GET["matricula"])  ){ ?>
+                                      <li><a href="?nome=<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&matricula=<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="background-color: #E7E7E7;" ><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php }else{ ?>
+                                      <li><a href="/admin/emprestimo/item/<?php echo htmlspecialchars( $item, ENT_COMPAT, 'UTF-8', FALSE ); ?>?<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="background-color: #E7E7E7;"  ><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php } ?>
+
+                                <?php }else{ ?>
+
+                                    <?php if( isset($_GET["nome"]) && isset($_GET["matricula"])  ){ ?>
+                                      <li><a href="?nome=<?php echo htmlspecialchars( $_GET["nome"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&matricula=<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>&<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php }else{ ?>
+                                      <li><a href="/admin/emprestimo/item/<?php echo htmlspecialchars( $item, ENT_COMPAT, 'UTF-8', FALSE ); ?>?<?php echo htmlspecialchars( $value1["link"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1["page"], ENT_COMPAT, 'UTF-8', FALSE ); ?></a></li>
+                                    <?php } ?>
+
+                                <?php } ?>
+                            
+                          <?php } ?>
+                          
+                      
                     </ul>
                 </nav>                        
             </div>
         </div>
-      </div> -->
+      </div>
     
     </section>
   

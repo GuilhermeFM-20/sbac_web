@@ -7,6 +7,7 @@ use \SBAC\Model;
 use \SBAC\Mailer;
 use \SBAC\Model\User;
 
+
 class Emprestimo extends Model{
 
     public static function listAll(){
@@ -29,15 +30,18 @@ class Emprestimo extends Model{
         
         if(!$num){
 
-            $results = $sql->query("INSERT INTO emprestimos VALUES(DEFAULT,:data_emp,:data_dev,:item_id,:bib_id,:leitor_id,:status_devolucao,:status_empr) ", array(
+            
+
+            $results = $sql->query("INSERT INTO emprestimos VALUES(DEFAULT ,:data_emp,:data_dev,:item_id,:bib_id,:leitor_id,:status_devolucao,:status_empr) ", array(
                 ":data_emp"=>date("Y-m-d"),
                 ":data_dev"=>date("Y-m-d",strtotime($this->getdata_devol())),
                 ":item_id"=>$item_id,
                 ":bib_id"=>$_SESSION['User']['bibliotecario_id'],
                 ":leitor_id"=>$leitor_id,
-                ":status_devolucao"=>'0',
-                ":status_empr"=>'1'
+                ":status_devolucao"=>0,
+                ":status_empr"=>1
             ));
+
 
         }else{
 
@@ -57,10 +61,11 @@ class Emprestimo extends Model{
 
         $sql = new Sql();
         
-        $sql->query("UPDATE emprestimos  SET dat_dev = :data_devo WHERE id_emp = :id", array(
+        $sql->debugSql("UPDATE emprestimos  SET dat_dev = :data_devo WHERE id_emp = :id", array(
             ":data_devo"=>date('Y-d-m',strtotime($this->getdata_devol())),
             ":id"=>$empr_id
         ));
+        exit;
 
         
         
@@ -99,12 +104,15 @@ class Emprestimo extends Model{
         ]);
 
     }
+    
 
-    public function searchEmprestimo(){
+    public function searchItens($page = 1, $itensForPages = 6){
 
-        //echo $this->getencerrados());exit;
+
+        $start = ($page - 1) * $itensForPages;
 
         $sql = new Sql();
+
         $busca = null;
 
         if($this->gettitulo()){
@@ -133,7 +141,16 @@ class Emprestimo extends Model{
 
         }
 
-        return $sql->select("SELECT * FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id $busca ORDER BY a.id_emp");
+        //$results =  $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 $busca LIMIT $start,$itensForPages");
+        $results = $sql->select("SELECT * FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id $busca LIMIT $start,$itensForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) AS nrtotal FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id $busca ");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $itensForPages) + 1
+        ];
 
     }
 
@@ -154,5 +171,47 @@ class Emprestimo extends Model{
 
     }
 
+    public function getPages($page = 1, $itensForPages = 4){
+
+
+        $start = ($page - 1) * $itensForPages;
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT * FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id LIMIT $start,$itensForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) AS nrtotal FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id ");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $itensForPages) + 1
+        ];
+
+    }
+
+    public static function submitEmail(){
+
+
+        $sql = new Sql();
+
+        $date = date('Y-m-d');
+
+        $results = $sql->select(" SELECT a.email_leitor,a.nome_leitor FROM leitor a,emprestimos b WHERE b.dat_dev <= '$date' AND b.status_devo = 0 AND b.status_empr = 1 GROUP BY b.id_emp");
+
+        //print_r($results);exit;
+
+        foreach($results as $values){
+
+            $email = new Mailer($values['email_leitor'],$values['nome_leitor'],'Prazo de devolução encerrado!','mailer',array(
+                "name"=>$values['email_leitor'],
+                "link"=>"http://www.abelcoelho.com.br/admin"
+            ));
+
+        }
+
+
+    }
+    
 
 }

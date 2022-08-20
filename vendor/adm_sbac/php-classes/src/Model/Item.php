@@ -32,7 +32,7 @@ class Item extends Model{
 
         $sql = new Sql();
         
-        $results = $sql->query("INSERT INTO item VALUES(DEFAULT,:titulo,:origem,:data_aq,:data_publ,:autor,:cod_tomb,:editora,:foto,:status_item) ", array(
+        $results = $sql->query("INSERT INTO item VALUES(DEFAULT,:titulo,:origem,:data_aq,:data_publ,:autor,:cod_tomb,:editora,:foto,:descricao,:status_item) ", array(
             ":titulo"=>$this->gettitulo(),
             ":origem"=>$this->getorigem(),
             ":data_aq"=>date("Y-m-d",strtotime($this->getdata_aq())),
@@ -41,6 +41,7 @@ class Item extends Model{
             ":editora"=>$this->geteditora(),
             ":data_publ"=>date("Y-m-d",strtotime($this->getdata_publ())),
             ":foto"=>$this->getfoto(),
+            ":descricao"=>$this->getdescricao(),
             ":status_item"=>'1'
         ));
 
@@ -51,12 +52,12 @@ class Item extends Model{
 
     public function update($id_item){
 
-        
+        //echo $this->getdescricao();exit;
 
         $sql = new Sql();
         
         $results = $sql->query("UPDATE item  SET titulo = :titulo, origem = :origem, data_aq = :data_aq
-        , autor = :autor, cod_tomb = :cod_tomb, editora = :editora, data_publ = :data_publ, url_img = :url_img WHERE item_id  = :id", array(
+        , autor = :autor, cod_tomb = :cod_tomb, editora = :editora, data_publ = :data_publ, url_img = :url_img, descricao_item = :descricao_item WHERE item_id  = :id", array(
            ":titulo"=>$this->gettitulo(),
            ":origem"=>$this->getorigem(),
            ":data_aq"=>date("Y-m-d",strtotime($this->getdata_aq())),
@@ -65,6 +66,7 @@ class Item extends Model{
            ":editora"=>$this->geteditora(),
            ":data_publ"=>date("Y-m-d",strtotime($this->getdata_publ())),
            ":url_img"=>$this->geturl_img(),
+           ":descricao_item"=>$this->getdescricao(),
            ":id"=>$id_item
         ));
         
@@ -114,9 +116,42 @@ class Item extends Model{
 
     }
 
-    public function searchItem(){
+
+    public function verifyCodTomb($codTomb){
 
         $sql = new Sql();
+
+        return $sql->numRow("SELECT * FROM item WHERE cod_tomb = $codTomb AND status_item = 1");
+
+    }
+
+
+    public function getPages($page = 1, $itemsForPages = 2){
+
+
+        $start = ($page - 1) * $itemsForPages;
+
+        $sql = new Sql();
+
+        $results = $sql->select("SELECT * FROM item WHERE status_item = 1 LIMIT $start, $itemsForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1 ");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $itemsForPages) + 1
+        ];
+
+    }
+
+    public function searchItem($page = 1, $itensForPages = 2){
+
+
+        $start = ($page - 1) * $itensForPages;
+
+        $sql = new Sql();
+
         $busca = null;
 
         if($this->gettitulo()){
@@ -131,34 +166,14 @@ class Item extends Model{
 
         }
 
-        return $sql->select("SELECT * FROM item WHERE status_item = 1 $busca ORDER BY item_id");
+        $results = $sql->select("SELECT * FROM item WHERE status_item = 1 $busca LIMIT $start,$itensForPages");
 
-    }
-
-    public function verifyCodTomb($codTomb){
-
-        $sql = new Sql();
-
-        return $sql->numRow("SELECT * FROM item WHERE cod_tomb = $codTomb AND status_item = 1");
-
-    }
-
-
-    public function getPages($page = 1, $alunosForPages = 6){
-
-
-        $start = ($page - 1) * $alunosForPages;
-
-        $sql = new Sql();
-
-        $results = $sql->select("SELECT  SQL_CALC_FOUND_ROWS * FROM leitor LIMIT $start, $alunosForPages");
-
-        $resultTotal = $sql->select(" SELECT COUNT(*) AS nrtotal FROM leitor LIMIT $start, $alunosForPages");
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1  $busca");
 
         return [
             "data"=>$results,
             "total"=>(int)$resultTotal[0]['nrtotal'],
-            "pages"=>ceil($resultTotal[0]['nrtotal'] / $alunosForPages)
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $itensForPages) + 1
         ];
 
     }

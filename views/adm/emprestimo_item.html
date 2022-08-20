@@ -39,32 +39,33 @@
               <h4><b>Buscar Empréstimo</b></h4>
               <!-- <a href="/admin/cadastro/aluno" style="width:14%;" class="btn btn-success">Cadastrar Aluno</a> -->
             </div>  
-                <form role="form" action="/admin/emprestimo/buscar" method="post">
+                <form role="form" action="/admin/busca/emprestimo" method="get">
                     <div class="campos_form" >
 
                       <div class="form-group" style="width: 20%;">
                         <label for="titulo">Título</label><br>
-                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título">
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" {if="isset($_GET[titulo])"}value="{$_GET[titulo]}"{/if}>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="cod_tomb">Cód Tombamento</label><br>
-                        <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código de tombamento">
+                        <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código de tombamento" {if="isset($_GET[cod_tomb])"}value="{$_GET[cod_tomb]}"{/if}>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="nome">Nome do Aluno</label><br>
-                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno">
+                        <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno" {if="isset($_GET[nome])"}value="{$_GET[nome]}"{/if}>
                       </div>
 
                       <div class="form-group"style="width: 20%;">
                         <label for="matricula">Matrícula</label><br>
-                        <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula">
+                        <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula" {if="isset($_GET[matricula])"}value="{$_GET[matricula]}"{/if}>
                       </div>
 
                       <div class="form-group"style="width: 14%;">
                         <label for="matricula">Encerrados</label><br>
                         <select name="encerrados" class="form-control" id="encerrados">
+                          <option value=""></option>
                           <option value="Nao">Não</option>
                           <option value="Sim">Sim</option>
                         </select>
@@ -74,7 +75,7 @@
   
                     <div class="box-footer">
                       <button type="submit" id="btn-sb" class="btn btn-primary">Buscar</button>
-                      <a href="/admin/cadastro/emprestimo/item" id="btn-sb"  class="btn btn-success">Cadastrar</a>
+                      <a href="/admin/emprestimo/buscar/item" id="btn-sb"  class="btn btn-success">Cadastrar</a>
                     </div>
                   </form>
                 <!-- /.box-body -->
@@ -93,7 +94,7 @@
         <div class="col-md-12">
           <div class="box box-primary">
                  
-                <div class="box-body no-padding" id="row-grid" style=" height:374px;">
+                <div class="box-body no-padding" id="row-grid" style=" height:71%;">
                   <table class="table table-striped" style="border-width:1px;">
                         <thead>
                           <tr>
@@ -118,12 +119,13 @@
                             <td>{$value.dat_emp}</td>
                             <td>{$value.dat_dev}</td>
                             <td>
+                              <!-- <a href="/admin/devolucao_email/{$value.id_emp}" class="btn btn-success btn-xs" title="Email Devolução"><i class="fa fa-calendar-plus-o"></i></a> -->
                               {if="$value.status_devo == 0 "}
                               <a href="/admin/renovacao/{$value.id_emp}" class="btn btn-success btn-xs" title="Renovação"><i class="fa fa-calendar-plus-o"></i></a>
                               {/if}
 
                               {if="$value.status_devo == 0 "}
-                              <a href="/admin/devolucao/{$value.id_emp}" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa fa-sign-in"></i></a> 
+                              <a href="/admin/devolucao/{$value.id_emp}" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa  fa-dropbox"></i></a> 
                               {/if}
                               <a href="/admin/emprestimo/{$value.id_emp}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
                             </td>
@@ -137,19 +139,41 @@
               </div>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row" id="row-pages">
         <div class="col-md-12">
             <div class="product-pagination text-center">
-                <nav>
+                <nav class="nav-pages">
                     <ul class="pagination">
-                    {loop="$pages"}
-                    <li><a href="{$value.link}">{$value.page}</a></li>
-                    {/loop}
+
+                          
+                          {loop="$pages"}
+
+                                {if="isset($_GET['page']) && $_GET['page'] == $value.page"}
+
+                                    {if="isset($_GET[nome]) && isset($_GET[matricula]) && isset($_GET[titulo]) && isset($_GET[cod_tomb]) && isset($_GET[encerrados])"}
+                                      <li><a href="?titulo={$_GET[titulo]}&cod_tomb={$_GET[cod_tomb]}&nome={$_GET[nome]}&matricula={$_GET[matricula]}&{$value.link}" style="background-color: #E7E7E7;" >{$value.page}</a></li>
+                                    {else}
+                                      <li><a href="/admin/busca/emprestimo?{$value.link}" style="background-color: #E7E7E7;"  >{$value.page}</a></li>
+                                    {/if}
+
+                                {else}
+
+                                    {if="isset($_GET[nome]) && isset($_GET[matricula]) && isset($_GET[titulo]) && isset($_GET[cod_tomb]) && isset($_GET[encerrados])"}
+                                      <li><a href="?titulo={$_GET[titulo]}&cod_tomb={$_GET[cod_tomb]}&nome={$_GET[nome]}&matricula={$_GET[matricula]}&{$value.link}">{$value.page}</a></li>
+                                    {else}
+                                      <li><a href="/admin/busca/emprestimo?{$value.link}">{$value.page}</a></li>
+                                    {/if}
+
+                                {/if}
+                            
+                          {/loop}
+                          
+                      
                     </ul>
                 </nav>                        
             </div>
         </div>
-      </div> -->
+      </div>
     
     </section>
   

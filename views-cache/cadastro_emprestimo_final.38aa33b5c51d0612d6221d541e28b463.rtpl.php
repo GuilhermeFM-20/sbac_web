@@ -51,16 +51,14 @@
 
    
     <!-- Main content -->
-    <?php if( $veri == 1 ){ ?>
-        <script>abreModal('Aviso','yt');</script>
-    <?php } ?>
+   
     <section class="content" >
     
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-success">
                 <div class="box-header with-border">
-                <h3 class="box-title">Novo Empréstimo</h3>
+                <h3 class="box-title">Novo Empréstimos</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -104,8 +102,8 @@
                 </div>
 
                 <div class="box-footer">
-                    <!-- <a href="/admin/emprestimo"><button type="button" id="btn-sb" class="btn btn-primary">Voltar</button></a> -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLive">Abrir modal de demonstração</button>
+                    <a href="/admin/emprestimo"><button type="button" id="btn-sb" class="btn btn-primary">Voltar</button></a>
+                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLive">Abrir modal de demonstração</button> -->
                     
                     
                     <button type="submit" id="btn-sb" class="btn btn-success">Cadastrar</button>

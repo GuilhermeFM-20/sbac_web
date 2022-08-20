@@ -35,6 +35,14 @@
   <!-- /.login-logo -->
   <div class="login-box-body" >
     <p class="login-box-msg">SBAC - Abel Coelho</p>
+    
+    <?php if( isset($_GET["verify_login"]) ){ ?>
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-ban"></i> Alerta!</h4>
+          Usuário inexistente ou senha inválida!  
+      </div>
+    <?php } ?>
 
     <form action="/admin/login" method="post" style="margin-top: 13%;">
       <div class="form-group has-feedback">

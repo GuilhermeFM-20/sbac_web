@@ -14,53 +14,81 @@ $app->get('/admin/aluno', function(){
 
 	User::verifyLogin();
 
-	// $page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+	$_GET = array(
+		"nome"=>'',
+		"matricula"=>''
+	);
 
-	// $aluno = new Aluno();
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
-	// $pagination = $aluno->getPages($page,4);
+	$aluno = new Aluno();
 
-	// $pages = [];
+	$pagination = $aluno->getPages($page,7);
 
-	// for ($i=1; $i < $pagination['pages'] ; $i++) { 
-	// 	array_push($pages, [
-	// 		'link'=>'admin/aluno/?page='.$i,
-	// 		"page"=>$i
-	// 	]);
-	// }
+	$pages = [];
 
-	//print_r($pages);exit;
-
-	$alunos = Aluno::listAll();
-
-	//print_r($alunos);exit;
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
 
 	$page = new PageAdmin();
 
 	$page->setTpl("aluno",[
-		"alunos"=>$alunos
+		"alunos"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
 	]);
 
 	///print_r($alunos);
 });
 
-$app->post('/admin/aluno/buscar',function(){
+$app->get('/admin/busca/aluno',function(){
 
 	//print_r($_POST);exit;
 
+
 	User::verifyLogin();
 
-	$alunos = new Aluno();
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+
+	$aluno = new Aluno();
+
+	$aluno->setData($_GET);
+
+	$pagination = $aluno->searchAluno($page,7);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
 
 	$page = new PageAdmin();
 
-	$alunos->setData($_POST);
 
-	$page->setTpl("aluno",[
-		"alunos"=>$alunos->searchAluno()
-	]);
+	
+	
+		
+		$page->setTpl("aluno",[
+			"alunos"=>$pagination['data'],
+			"pages"=>$pages,
+			"full_pages"=>count($pages)
+		]);
+		
+	
+
+	
 
 });
+
+
 
 $app->get('/admin/cadastro/aluno', function(){
 

@@ -74,9 +74,70 @@ $app->get('/radio',function(){
 });
 $app->get('/contact',function(){
 
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+	$item = new Item();
+
+	$pagination = $item->getPages($page,6);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			"link"=>'/contact?page='.$i,
+			"page"=>$i
+
+		]);
+
+	}
+
+	//print_r($pages);exit;
+
 	$page = new Page();
 
-	$page->setTpl("contact");
+	$page->setTpl('contact',[
+		"itens"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
+	]);
+
+});
+
+$app->get('/contact/busca/item',function(){
+
+	//print_r($_GET);exit;
+
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
+
+	$item = new Item();
+
+	$item->setData($_GET);
+
+	$pagination = $item->searchItem($page,6);
+
+	$pages = [];
+
+	for ($i=1; $i < $pagination['pages'] ; $i++) { 
+		array_push($pages, [
+			'link'=>'page='.$i,
+			"page"=>$i
+		]);
+	}
+
+
+	
+
+	$page = new Page();
+	
+		
+	$page->setTpl("contact",[
+		"itens"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages)
+	]);
+		
+	
 
 });
 

@@ -42,7 +42,7 @@
                 <div class="box box-success">
                 <div class="box-header with-border">
                 <h3 class="box-title">Novo Item</h3>
-                </div>
+            </div>
                 <!-- /.box-header -->
                 <!-- form start -->
             <form role="form" action="/admin/cadastra/item" method="post">
@@ -91,6 +91,10 @@
                                         <label for="foto">Foto</label>
                                         <input type="text" class="form-control" id="foto" name="foto" value="{$livros.foto}" placeholder="Adicione a URL de uma foto" required>
                                         </div>
+                                </div>
+                                <div class="form-group-text">
+                                    <label for="descricao">Descrição</label>
+                                    <textarea class="form-control" rows="5" id="descricao" name="descricao"  placeholder="Adicione a descrição do livro" style="resize: none">{$livros.descricao}</textarea>
                                 </div>
                         </div>
                         <!-- /.box-body -->
