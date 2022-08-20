@@ -1,4 +1,0 @@
-- Implementações do sistema SBAC 
-*~ Finalizar o envio dos emails dos empréstimos encerrados
--v Adicionar a parte de biblioteca no site do abel
-* Adicionar os relatórios de empréstimos no sistema
