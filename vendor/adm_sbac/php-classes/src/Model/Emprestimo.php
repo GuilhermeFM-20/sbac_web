@@ -154,6 +154,44 @@ class Emprestimo extends Model{
 
     }
 
+    public function searchEmprestimo(){
+
+
+        $sql = new Sql();
+
+        $busca = null;
+
+        if($this->gettitulo()){
+
+            $busca .= " AND b.titulo LIKE '%".trim($this->gettitulo())."%'";
+
+        }
+        if($this->getcod_tomb()){
+
+            $busca .= " AND b.cod_tomb = '".$this->getcod_tomb()."'";
+
+        }
+        if($this->getnome()){
+
+            $busca .= " AND c.nome_leitor LIKE '%".trim($this->getnome())."%'";
+
+        }
+        if($this->getmatricula()){
+
+            $busca .= " AND c.matricula_leitor = '".$this->getmatricula()."'";
+
+        }
+        if($this->getencerrados() == 'Sim'){
+
+            $busca .= " AND a.status_devo = 0 AND a.dat_dev <= '".date('Y-m-d')."'";
+
+        }
+
+        //$results =  $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 $busca LIMIT $start,$itensForPages");
+        return $sql->select("SELECT * FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id $busca ");
+
+    }
+
     public static function getEmpr(int $empr_id){
 
         $sql = new Sql();

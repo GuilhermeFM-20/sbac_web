@@ -445,25 +445,35 @@ desired effect
         <li class="header">Menus</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="treeview">
-          <!-- <a href="#"><i class="fa fa-users"></i> <span>Cadastros</span> -->
+          <a href="#"><i class="fa  fa-calendar-plus-o"></i> <span>Cadastros</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <!-- <ul class="treeview-menu"> -->
-            <li><a href="/admin/busca/aluno"><i class="fa fa-users"></i>Alunos</a></li>
+          <ul class="treeview-menu">
+            <li><a href="/admin/busca/aluno"><i class="fa fa-user-plus"></i>Alunos</a></li>
             <li><a href="/admin/item"><i class="fa fa-book"></i>Livros</a></li>
-          <!-- </ul> -->
+          </ul>
         </li>
         <li class="treeview">
-          <!-- <a href="#"><i class="fa fa-book"></i> <span>Processos</span> -->
+          <a href="#"><i class="fa fa-gears"></i> <span>Processos</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <!-- <ul class="treeview-menu"> -->
-            <li><a href="/admin/emprestimo"><i class="fa fa-exchange"></i>Empréstimo</a></li>
-          <!-- </ul> -->
+          <ul class="treeview-menu">
+            <li><a href="/admin/emprestimo"><i class="fa fa-exchange"></i>Empréstimos</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-file-o"></i> <span>Relatórios</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/relatorios/emprestimos"><i class="fa fa-file-text"></i>Empréstimos</a></li>
+          </ul>
         </li>
         <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">

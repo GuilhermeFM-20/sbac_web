@@ -1,0 +1,11 @@
+- Implementações do sistema SBAC 
+*~ Finalizar o envio dos emails dos empréstimos encerrados
+* Adicionar os relatórios de empréstimos no sistema
+    'Relatório de leitores'
+
+* Adicionar as máscaras dos campos nos cadastros
+* Verificar as estrutura do banco de dados
+
+
+
+

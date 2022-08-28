@@ -437,4 +437,36 @@ $app->get('/admin/emprestimo/buscar/encerrados',function(){
 
 });
 
+$app->get('/admin/relatorios/emprestimos',function(){
+
+	User::verifyLogin();
+
+	$page = new PageAdmin();
+
+	$page->setTpl('relatorio_emprestimos');
+
+});
+
+$app->post('/admin/relatorios/emprestimos/buscar',function(){
+
+	//print_r($_POST);exit;
+
+	User::verifyLogin();
+
+	$page = new PageAdmin([
+		"header"=>false,
+		"footer"=>false
+	]);
+
+	$empr = new Emprestimo();
+
+	$empr->setData($_POST);
+
+	$page->setTpl('planilha_emprestimos',[
+		"emprestimos"=>$empr->searchEmprestimo(),
+		"data"=>date('d/m/Y H:m')
+	]);
+
+});
+
 
