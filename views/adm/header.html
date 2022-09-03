@@ -242,7 +242,7 @@ desired effect
   <header class="main-header" >
 
     <!-- Logo -->
-    <a href="../admin/index2.html" class="logo" style="background-color:#183f95">
+    <a href="/admin" class="logo" style="background-color:#183f95">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       
 
@@ -276,7 +276,8 @@ desired effect
                     <a href="#">
                       <div class="pull-left">
                         
-                        <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
+                       
+
                       </div>
                       
                       <h4>
@@ -309,12 +310,18 @@ desired effect
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
                   {if="$_SESSION[config][numLoan] > 0"}
-                  <li><!-- start notification -->
-                    <a href="/admin/emprestimo/buscar/encerrados">
-                      <i class="fa fa-book text-aqua" style="margin-left: 10%;"></i>Empréstimos encerrados 
-                      <button type="button" class="btn btn-default" style="display: inline-block; margin-left: 10%;">{$_SESSION[config][numLoan]}</button>
-                    </a>
-                  </li>
+                    <li><!-- start notification -->
+                      <a href="/admin/emprestimo/buscar/encerrados">
+                        <i class="fa fa-book text-aqua" style="margin-left: 10%;"></i>Empréstimos encerrados 
+                        <button type="button" class="btn btn-default" style="display: inline-block; margin-left: 10%;">{$_SESSION[config][numLoan]}</button>
+                      </a>
+                    </li>
+                  {else}
+                    <li><!-- start notification -->
+                      <a href="">
+                      <p>Nenhuma notificação</p>
+                      </a>
+                    </li>
                   {/if}
                   <!-- end notification -->
                 </ul>
@@ -334,7 +341,7 @@ desired effect
               <li>
                 
                 <ul class="menu">
-                  <li>
+                  <l
                     <a href="#">
                       
                       <h3>
@@ -363,14 +370,23 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="/views/adm/admin/dist/img/pda.png" class="user-image" alt="User Image">
+              {if="$_SESSION[User][foto] == ''"}
+                <img src="/views/adm/admin/dist/img/pda.png" class="user-image" alt="User Image">
+              {else}
+                <img src="/{$_SESSION[User][foto]}" class="user-image" alt="User Image">
+              {/if}
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{$_SESSION[User][nome_bib]}</span>
             </a>
             <ul class="dropdown-menu"  style="height:100px;">
               <!-- The user image in the menu -->
               <li class="user-header" style="background-color: #101fa3;">
+                {if="$_SESSION[User][foto] == ''"}
                 <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
+                {else}
+                <img src="/{$_SESSION[User][foto]}" class="img-circle" alt="User Image">
+                {/if}
+
 
                 <p>
                   {$_SESSION[User][nome_bib]}
@@ -395,7 +411,7 @@ desired effect
               <!-- Menu Footer-->
               <li class="user-footer" style="background-color: #d5e6f0;">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  <a href="/admin/perfil" class="btn btn-default btn-flat">Perfil</a>
                 </div>
                 <div class="pull-right">
                   <a href="/admin/logout" class="btn btn-default btn-flat">Sair</a>
@@ -405,7 +421,7 @@ desired effect
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-history"></i></a>
           </li>
         </ul>
       </div>
@@ -420,7 +436,12 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
+          {if="$_SESSION[User][foto] == ''"}
+            <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
+          {else}
+            <img src="/{$_SESSION[User][foto]}" class="img-circle" alt="User Image">
+          {/if}
+
         </div>
         <div class="pull-left info" style="margin-top: 5%;">
           <p>{$_SESSION[User][nome_bib]}</p>

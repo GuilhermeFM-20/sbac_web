@@ -53,11 +53,47 @@ $app->post('/admin/login', function(){
 
 });
 
+
+
 $app->get('/admin/logout',function(){
 
 	User::logout();
 	
 	header("Location: /admin/login");
+	exit;
+
+});
+
+$app->get('/admin/perfil',function(){
+
+	User::verifyLogin();
+	
+	$page = new PageAdmin();
+
+	$page->setTpl('perfil_bibliotecario',[
+		"bibliotecario"=>$_SESSION[User::SESSION]
+	]);
+
+});
+
+$app->post('/admin/atualiza/bibliotecario',function(){
+	
+	//print_r($_POST);exit;
+
+	if($_FILES['file']['name'] == ''){
+
+		header("Location: /admin/perfil");
+		exit;
+
+	}
+	
+	$user = new User();
+
+	$user->setData($_POST);
+
+	$user->setFileArchive($_FILES);
+
+	header("Location: /admin/perfil");
 	exit;
 
 });

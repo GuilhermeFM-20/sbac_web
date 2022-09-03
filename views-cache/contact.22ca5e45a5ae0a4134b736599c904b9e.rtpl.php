@@ -34,18 +34,18 @@
                         <!-- <div class="section-heading text-center mx-auto wow fadeInUp"  -->
                 <div class="row wow fadeInUp" data-wow-delay="300ms" >
                     <?php $counter1=-1;  if( isset($itens) && ( is_array($itens) || $itens instanceof Traversable ) && sizeof($itens) ) foreach( $itens as $key1 => $value1 ){ $counter1++; ?>
-                        <div class="row_books">
+                        <div class="row_books" style="display: flex;">
 
                             <div class="div_img" >
                                 <img src="<?php echo htmlspecialchars( $value1["url_img"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="img_bib" id="img_bib" style="vertical-align: none;" >
                             </div>
-                            <div class="div_label">
+                            <div style="margin: 4% 4% 0 4%;">
                                 <label class="label_books">Título:</label>
                                 <p><?php echo htmlspecialchars( $value1["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
                                 <label class="label_books">Autor:</label>
                                 <p><?php echo htmlspecialchars( $value1["autor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
                             </div>
-                            <div class="div_label_2">
+                            <div style="margin: 4% 0 0 0;">
                                 <label class="label_books">Editora:</label>
                                 <p><?php echo htmlspecialchars( $value1["editora"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
                                 <label class="label_books">Código de Tombamento:</label>

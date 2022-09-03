@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="form-group">
                                     <label for="data_aq">Data Aquisição</label>
-                                    <input type="text" class="form-control" id="data_aq" name="data_aq" placeholder="00/00/0000"  value="<?php echo date('d-m-Y'); ?>" required >
+                                    <input type="date" class="form-control" id="data_aq" name="data_aq" placeholder="00/00/0000"  required >
                                     </div>
                                 </div>
 
@@ -85,7 +85,7 @@
                                 <div class="campos_form">
                                     <div class="form-group">
                                         <label for="data_publ">Data de Publicação</label>
-                                        <input type="text" class="form-control" id="data_publ" name="data_publ"  value="<?php echo htmlspecialchars( $livros["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Digite a datar" required>
+                                        <input type="date" class="form-control" id="data_publ" name="data_publ"  value="<?php echo htmlspecialchars( $livros["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Digite a datar" required>
                                         </div>
                                         <div class="form-group">
                                         <label for="foto">Foto</label>

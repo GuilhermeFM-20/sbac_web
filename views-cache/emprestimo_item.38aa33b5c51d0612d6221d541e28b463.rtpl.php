@@ -62,7 +62,7 @@
                         <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula" <?php if( isset($_GET["matricula"]) ){ ?>value="<?php echo htmlspecialchars( $_GET["matricula"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"<?php } ?>>
                       </div>
 
-                      <div class="form-group"style="width: 14%;">
+                      <div class="form-group"style="width: 15%;">
                         <label for="matricula">Encerrados</label><br>
                         <select name="encerrados" class="form-control" id="encerrados">
                           <option value=""></option>

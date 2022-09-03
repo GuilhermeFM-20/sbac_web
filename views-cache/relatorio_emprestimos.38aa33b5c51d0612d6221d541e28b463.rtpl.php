@@ -23,8 +23,13 @@
                       <div class="campos_form" >
   
                         <div class="form-group" style="width: 20%;">
-                          <label for="titulo">Título</label><br>
-                          <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título">
+                          <label for="dataI">Data Inicial:</label><br>
+                          <input type="date" class="form-control" id="dataI" name="dataI" placeholder="Digite a data incial">
+                        </div>
+
+                        <div class="form-group"style="width: 20%;">
+                          <label for="dataF">Data Final:</label><br>
+                          <input type="date" class="form-control" id="dataF" name="dataF" placeholder="Digite a data final">
                         </div>
   
                         <div class="form-group"style="width: 20%;">
@@ -33,16 +38,11 @@
                         </div>
   
                         <div class="form-group"style="width: 20%;">
-                          <label for="nome">Nome do Aluno</label><br>
-                          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno">
-                        </div>
-  
-                        <div class="form-group"style="width: 20%;">
                           <label for="matricula">Matrícula</label><br>
                           <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula">
                         </div>
-  
-                        <div class="form-group"style="width: 14%;">
+
+                        <div class="form-group"style="width: 15%;">
                           <label for="matricula">Encerrados</label><br>
                           <select name="encerrados" class="form-control" id="encerrados">
                             <option value=""></option>
@@ -50,7 +50,21 @@
                             <option value="Sim">Sim</option>
                           </select>
                         </div>
+
+                      </div>
+
+                      <div class="campos_form" >
   
+                        <div class="form-group" >
+                          <label for="titulo">Título</label><br>
+                          <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título">
+                        </div>
+    
+                        <div class="form-group">
+                          <label for="nome">Nome do Aluno</label><br>
+                          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno">
+                        </div>
+                       
                       </div>
     
                       <div class="box-footer">

@@ -1,0 +1,178 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?>
+
+<!-- Content Wrapper. Contains page content -->
+<script>
+
+    function verifica_matricula(){
+
+        var matr = document.getElementById('matricula').value;
+        
+        var frame = document.getElementById('frame_matricula');
+
+        frame.setAttribute('src','/admin/aluno/cadastro/verifica/'+matr);
+
+        alert(num);
+
+    }
+    
+    function image_bib(){
+    const inputFile = document.querySelector("#picture__input");
+    const pictureImage = document.querySelector(".picture__image");
+    const pictureImageTxt = "Choose an image";
+    pictureImage.innerHTML = pictureImageTxt;
+
+    inputFile.addEventListener("change", function (e) {
+    const inputTarget = e.target;
+    const file = inputTarget.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function (e) {
+        const readerTarget = e.target;
+
+        const img = document.createElement("img");
+        img.src = readerTarget.result;
+        img.classList.add("picture__img");
+
+        pictureImage.innerHTML = "";
+        pictureImage.appendChild(img);
+        });
+
+        reader.readAsDataURL(file);
+    } else {
+        pictureImage.innerHTML = pictureImageTxt;
+    }
+    });
+    }
+
+
+</script>
+
+<style>
+#picture__input {
+  display: none;
+}
+
+.picture {
+  width: 150px;
+  height: 150px;
+  aspect-ratio: 16/9;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  border: 2px dashed currentcolor;
+  cursor: pointer;
+  font-family: sans-serif;
+  transition: color 300ms ease-in-out, background 300ms ease-in-out;
+  outline: none;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.picture:hover {
+  color: #777;
+  background: #ccc;
+}
+
+.picture:active {
+  border-color: turquoise;
+  color: turquoise;
+  background: #eee;
+}
+
+.picture:focus {
+  color: #777;
+  background: #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.picture__img {
+  max-width: 100%;
+}
+
+</style>
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Perfil do Bibliotecário
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/admin"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li class="active">Perfil</li>
+      </ol>
+    </section>
+    
+    <iframe src="" id="frame_matricula" style="display: none;"></iframe>
+    <!-- Main content -->
+    <section class="content" >
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-success">
+                <div class="box-header with-border">
+                <!-- <h3 class="box-title">Novo Aluno</h3> -->
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+            <form role="form" action="/admin/atualiza/bibliotecario" method="post" enctype="multipart/form-data">
+
+                <div class="box-body" style="display: flex;">
+
+                    <div>
+                        <label class="picture" for="picture__input" tabIndex="0">
+                            <span class="picture__image"><img src="/<?php echo htmlspecialchars( $bibliotecario["foto"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" ></span>
+                        </label>
+                        <input type="file" name="file" id="picture__input" onclick="image_bib()">
+                    </div>
+
+                    <div>
+                        <div class="form-group" style="width: 98%;">
+                            <label for="nome">Nome:</label><br>
+                            <input type="text" class="form-control" id="nome" name="nome" value="<?php echo htmlspecialchars( $bibliotecario["nome_bib"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Digite o seu nome" required>
+                        </div>
+
+                        <div class="form-group" style="width: 98%;">
+                            <label for="matricula">Matrícula:</label><br>
+                            <input type="value" class="form-control" id="matricula" name="matricula"  value="<?php echo htmlspecialchars( $bibliotecario["matricula_bib"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"  placeholder="Digite sua matrícula na escolar" onchange="verifica_matricula()" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group" style="width: 98%;">
+                            <label for="telefone">Telefone:</label>
+                            <input type="text" class="form-control" id="telefone" name="telefone" value="<?php echo htmlspecialchars( $bibliotecario["telefone_bib"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group" style="width: 98%;">
+                            <label for="email">E-mail:</label>
+                            <input type="mail" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars( $bibliotecario["email_bib"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" name="email" placeholder="Digite o email para contato" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group" style="width: 98%;">
+                            <label for="login">Login:</label>
+                            <input type="text" class="form-control" id="login" name="login" value="<?php echo htmlspecialchars( $bibliotecario["login_bib"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Seu login do sistema" required>
+                        </div>
+                        <div class="form-group" style="width: 98%;">
+                            <label for="senha">Senha:</label>
+                            <input type="password" class="form-control" id="senha" name="senha" name="vlheight" placeholder="Digite sua senha do sistema" required>
+                        </div>
+                    </div>
+                        
+                </div>  
+
+                <div class="box-footer">
+                    <!-- <a href="/admin/aluno"><button type="button" id="btn-sb" class="btn btn-primary">Voltar</button></a> -->
+                    <button type="submit" id="btn-sb" class="btn btn-success">Atualizar</button>
+                </div>
+            </form>
+    </section>
+    
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->

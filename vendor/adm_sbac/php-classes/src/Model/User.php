@@ -266,7 +266,7 @@ class User extends Model {
 
 	}
 
-    public function  setPassword(){
+    public function setPassword(){
 
         $sql = new Sql();
 
@@ -274,6 +274,49 @@ class User extends Model {
             ":password"=>$password,
             ":iduser"=>$this->getiduser()
         ));
+
+    }
+
+    public function setFileArchive($file = array()){
+        
+        $extensao = strtolower(substr($file['file']['name'],-4));
+        $novo_nome = md5($_SESSION[User::SESSION]["bibliotecario_id"].date('Y-m-d')).$extensao;
+        $diretorio = "views/adm/admin/dist/img/";
+
+        //echo $file['file']['tmp_name'].",".$diretorio.$novo_nome;exit;
+
+        move_uploaded_file($file['file']['tmp_name'] , $diretorio.$novo_nome);
+
+            $sql = new Sql();
+
+            $sql->query(" UPDATE bibliotecario SET nome_bib = :nome_bib, telefone_bib = :telefone_bib, login_bib = :login_bib, matricula_bib
+            = :matricula_bib, foto = :foto, email_bib = :email_bib, senha = md5(:senha) WHERE bibliotecario_id = :bibliotecario_id ", array(
+                ":nome_bib"=>$this->getnome(),
+                ":telefone_bib"=>$this->gettelefone(),
+                ":login_bib"=>$this->getlogin(),
+                ":matricula_bib"=>$this->getmatricula(),
+                ":email_bib"=>$this->getemail(),
+                ":senha"=>$this->getsenha(),
+                ":foto"=>$diretorio.$novo_nome,
+                ":bibliotecario_id"=>$_SESSION[User::SESSION]["bibliotecario_id"]
+            ));
+
+
+            $results = $sql->select("SELECT * FROM bibliotecario WHERE bibliotecario_id = :id", array(
+                ":id"=>$_SESSION[User::SESSION]["bibliotecario_id"]
+            ));
+
+            $data=$results[0];
+
+            $user = new User();
+
+            $user->setData($data);
+
+            $_SESSION[User::SESSION] = $user->getValues();
+            
+    
+
+
 
     }
 }

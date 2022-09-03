@@ -156,10 +156,24 @@ class Emprestimo extends Model{
 
     public function searchEmprestimo(){
 
+        //echo $this->getdataI();exit;
+
 
         $sql = new Sql();
 
         $busca = null;
+
+        if($this->getdataI()){
+
+            $busca .= " AND a.dat_dev >= '".$this->getdataI()."'";
+
+        }
+
+        if($this->getdataF()){
+
+            $busca .= " AND a.dat_dev <= '".$this->getdataF()."'";
+
+        }
 
         if($this->gettitulo()){
 
@@ -189,6 +203,7 @@ class Emprestimo extends Model{
 
         //$results =  $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 $busca LIMIT $start,$itensForPages");
         return $sql->select("SELECT * FROM emprestimos a,item b,leitor c WHERE a.status_empr = 1  AND a.item_id = b.item_id AND  a.leitor_id = c.leitor_id $busca ");
+    
 
     }
 

@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group">
                         <label for="data_aq">Data Aquisição</label>
-                        <input type="text" class="form-control" id="data_aq" name="data_aq" placeholder="00/00/0000" value="<?php echo htmlspecialchars( $itens["data_aq"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required >
+                        <input type="date" class="form-control" id="data_aq" name="data_aq" placeholder="00/00/0000" value="<?php echo htmlspecialchars( $itens["data_aq"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" required >
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                     <div class="campos_form">
                       <div class="form-group">
                           <label for="data_publ">Data de Publicação</label>
-                          <input type="text" class="form-control" id="data_publ" name="data_publ" value="<?php echo htmlspecialchars( $itens["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Digite a datar" required>
+                          <input type="date" class="form-control" id="data_publ" name="data_publ" value="<?php echo htmlspecialchars( $itens["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="Digite a datar" required>
                           </div>
                           <div class="form-group">
                           <label for="url_img">Foto</label>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="form-group-text">
                       <label for="descricao">Descrição</label>
-                      <textarea class="form-control" rows="3" id="descricao" name="descricao"  placeholder="Adicione a descrição do livro" style="resize: none"><?php echo htmlspecialchars( $itens["descricao_item"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
+                      <textarea class="form-control" rows="5" id="descricao" name="descricao"  placeholder="Adicione a descrição do livro" style="resize: none"><?php echo htmlspecialchars( $itens["descricao_item"], ENT_COMPAT, 'UTF-8', FALSE ); ?></textarea>
                     </div>
 
             </div>
