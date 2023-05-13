@@ -23,15 +23,28 @@ class Aluno extends Model{
 
         $sql = new Sql();
         
-        $results = $sql->query("INSERT INTO leitor VALUES(DEFAULT,:nome,:matricula,:email,:sexo,:status_leitor,:turma,:telefone) ", array(
-            ":nome"=>$this->getnome(),
-            ":matricula"=>$this->getmatricula(),
-            ":email"=>$this->getemail(),
-            ":sexo"=>$this->getsexo(),
-            ":status_leitor"=>'1',
-            ":turma"=>$this->getturma(),
-            ":telefone"=>$this->gettelefone()
-        ));
+        $num = $this->verifyMatricula($this->getmatricula());
+
+        if($num > 0){
+            return false;
+        }
+
+        try{
+            $results = $sql->query("INSERT INTO leitor VALUES(DEFAULT,:nome,:matricula,:email,:sexo,:status_leitor,:turma,:telefone) ", array(
+                ":nome"=>$this->getnome(),
+                ":matricula"=>$this->getmatricula(),
+                ":email"=>$this->getemail(),
+                ":sexo"=>$this->getsexo(),
+                ":status_leitor"=>'1',
+                ":turma"=>$this->getturma(),
+                ":telefone"=>$this->gettelefone()
+            ));
+            return true;
+        }catch(\Exception $e){
+
+            return false;
+            
+        }
         
         //$this->setData($results[0]);
 

@@ -8,7 +8,9 @@ class Mailer{
 
 	private $mail;
 
-    public function __construct($toAndress, $toName, $subject, $tplName, $data = array()){
+    public function __construct($toAndress, $toName, $subject, $tplName, $dados = array()){
+
+		//print_r($dados);exit;
 
         $json = file_get_contents($_SERVER['DOCUMENT_ROOT']."/Mailer.json");
 
@@ -30,10 +32,15 @@ class Mailer{
 		Tpl::configure( $config );
 
 		$tpl = new Tpl();
+		
 
-		foreach ($data as $key => $value) {
+		foreach ($dados['empr'] as $key => $value) {
+
+			//echo $key." - ".$value."<br>";
+
 			$tpl->assign($key, $value);
 		}
+		//exit;
 
 		$html = $tpl->draw($tplName, true);
 
@@ -104,21 +111,22 @@ class Mailer{
 
 		///$this->mail->send();
 
-		if(!$this->mail->Send()) {
-			echo 'Message was not sent.';
-			echo 'Mailer error: ' . $this->mail->ErrorInfo;
-		} else {
-			echo 'Message has been sent.';
-		}
+		
 
     }
 
-    // public function send()
-	// {
+    public function send()
+	{
 
-    //     $this->mail = new \PHPMailer();
-	// 	return 
+        //$this->mail = new \PHPMailer();
 
-	// }
+		if(!$this->mail->Send()) {
+			echo " <script> alert('Erro no envio de email:". $this->mail->ErrorInfo."')</script>";
+		} else {
+			echo " <script> alert('Sucesso no envio de email')</script>";
+		}
+
+
+	}
 
 }

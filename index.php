@@ -141,6 +141,7 @@ $app->get('/contact/busca/item',function(){
 
 });
 
+require_once('functions.php');
 require_once('admin_aluno.php');
 require_once('admin_item.php');
 require_once('admin_emprestimo.php');

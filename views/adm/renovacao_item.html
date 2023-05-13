@@ -29,42 +29,43 @@
 
                         <div class="box-body" >
 
-                                <div class="campos_form">
+                                
+                                <div class="campos_form"  style="display: flex;">
+
                                     <div class="form-group">
-                                        <label for="titulo">Foto</label><br>
-                                        <img src="{$empr.url_img}" style="width: 10%;"><br>
-                                        <label for="titulo">Título</label><br>
+                                        <label for="titulo">Foto:</label><br>
+                                        <img src="{$empr.url_img}" style="width: 25%;"><br>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        
+                                        <label for="titulo">Título:</label><br>
                                         <p>{$empr.titulo}</p>
-                                        <label for="titulo">Código de Tombamento</label><br>
+                                        <label for="titulo">Código de Tombamento:</label><br>
                                         <p>{$empr.cod_tomb}</p>
                                     </div>
-
+                
                                     <div class="form-group">
-                                        <label for="titulo">Nome do Aluno</label><br>
+                                        <label for="titulo">Nome do Aluno:</label><br>
                                         <p>{$empr.nome_leitor}</p>
-                                        <label for="titulo">Matrícula</label><br>
+                                        <label for="titulo">Matrícula:</label><br>
                                         <p>{$empr.matricula_leitor}</p>
-                                        <label for="titulo">Turma</label><br>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <label for="titulo">Turma:</label><br>
                                         <p>{$empr.turma}</p>
                                     </div>
-
+                
                                 </div>
-                                
-                                <!-- <div class="form-group">
-                                <label for="data_devol">Data de Devolução</label>
-                                <input type="hidden" name="empr_id" value="{$empr.id_emp}">
-                                <input type="text" class="form-control"  data-inputmask="'alias': 'dd/mm/yyyy'" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
-                                </div> -->
+
                                 <div class="form-group">
-                                    <label>Date masks:</label>
-                                    <div class="input-group">
-                                    <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-                                    </div>
+                                    <label>Data de Devolução:</label>
+                                        <input type="hidden" name="empr_id" value="{$empr.id_emp}">
+                                        <input type="date" class="form-control" id="data_devol" name="data_devol" placeholder="Digite a data de devolução">
+                                   
                                     
-                                    </div>
+                                </div>
 
                         </div>
                         <!-- /.box-body -->

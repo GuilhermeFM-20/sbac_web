@@ -30,6 +30,8 @@
     </section>
   
     <section class="content" style=" margin-top: 2%;">
+
+      {function="showMessage($setMsg.msg,$setMsg.tipo)"}
     
       <div class="row">
         <div class="col-md-12">
@@ -95,10 +97,10 @@
                             <td>{$value.titulo}</td>
                             <td>{$value.cod_tomb}</td>
                             <td>{$value.origem}</td>
-                            <td>{$value.data_aq}</td>
+                          <td>{function="formatDate($value.data_aq)"}</td>
                             <td>{$value.autor}</td>
                             <td>{$value.editora}</td>
-                            <td>{$value.data_publ}</td>
+                            <td>{function="formatDate($value.data_publ)"}</td>
                             <td>
                               <a href="/admin/item/{$value.item_id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
                               <a href="/admin/item/{$value.item_id}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>

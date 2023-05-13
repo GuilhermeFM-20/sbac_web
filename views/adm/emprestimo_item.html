@@ -116,8 +116,8 @@
                             <td>{$value.matricula_leitor}</td>
                             <td>{$value.titulo}</td>
                             <td>{$value.cod_tomb}</td>
-                            <td>{$value.dat_emp}</td>
-                            <td>{$value.dat_dev}</td>
+                            <td>{function="formatDate($value.dat_emp)"}</td>
+                            <td>{function="formatDate($value.dat_dev)"}</td>
                             <td>
                               <!-- <a href="/admin/devolucao_email/{$value.id_emp}" class="btn btn-success btn-xs" title="Email Devolução"><i class="fa fa-calendar-plus-o"></i></a> -->
                               {if="$value.status_devo == 0 "}

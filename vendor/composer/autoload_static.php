@@ -16,7 +16,7 @@ class ComposerStaticInitbdf6cac40480ff10bdc1896f82588f22
     public static $prefixDirsPsr4 = array (
         'SBAC\\' => 
         array (
-            0 => __DIR__ . '/..' . '/adm_sbac/php-classes/src',
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

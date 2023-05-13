@@ -14,16 +14,18 @@ $app->get('/admin/aluno', function(){
 
 	User::verifyLogin();
 
+	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
 	$_GET = array(
 		"nome"=>'',
 		"matricula"=>''
 	);
 
-	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
-
 	$aluno = new Aluno();
 
 	$pagination = $aluno->getPages($page,7);
+
+	
 
 	$pages = [];
 
@@ -39,7 +41,8 @@ $app->get('/admin/aluno', function(){
 	$page->setTpl("aluno",[
 		"alunos"=>$pagination['data'],
 		"pages"=>$pages,
-		"full_pages"=>count($pages)
+		"full_pages"=>count($pages),
+		'setMsg'=> User::getMessage()
 	]);
 
 	///print_r($alunos);
@@ -72,19 +75,14 @@ $app->get('/admin/busca/aluno',function(){
 
 	$page = new PageAdmin();
 
-
-	
-	
 		
-		$page->setTpl("aluno",[
-			"alunos"=>$pagination['data'],
-			"pages"=>$pages,
-			"full_pages"=>count($pages)
-		]);
+	$page->setTpl("aluno",[
+		"alunos"=>$pagination['data'],
+		"pages"=>$pages,
+		"full_pages"=>count($pages),
+		'setMsg'=> User::getMessage()
+	]);
 		
-	
-
-	
 
 });
 
@@ -92,16 +90,26 @@ $app->get('/admin/busca/aluno',function(){
 
 $app->get('/admin/cadastro/aluno', function(){
 
+	//$_SESSION['alunoValues'] = array('nome'=>'','matricula'=>'','turma'=>'','telefone'=>'','turma'=>'','sexo'=>'','email'=>'');
+
 	User::verifyLogin();
 
 	$page = new PageAdmin();
 
-	$page->setTpl('cadastro_aluno');
+	$page->setTpl('cadastro_aluno',[
+		'setMsg'=> Aluno::getMessage(),
+		'aluno'=>(isset($_SESSION['alunoValues'])) ? $_SESSION['alunoValues'] : ['nome'=>'','matricula'=>'','turma'=>'','telefone'=>'','turma'=>'','sexo'=>'','email'=>'']
+		//'aluno'=>array('nome'=>'','matricula'=>'','turma'=>'','telefone'=>'','turma'=>'','sexo'=>'','email'=>'')
+	]);
+
+	unset($_SESSION['alunoValues']);
 
 });
 
 
 $app->post('/admin/cadastra/aluno',function(){
+	
+	
 
 	User::verifyLogin();
 	 
@@ -111,10 +119,25 @@ $app->post('/admin/cadastra/aluno',function(){
 
 	$aluno->setData($_POST);
 
-	$aluno->save();
 
-	header("Location: /admin/aluno");
-	exit;
+	if($aluno->save()){
+		//Aluno::setMessage("/admin/busca/aluno","",3);
+
+		Aluno::setMessage("Leitor cadastrado com sucesso.",'Sucesso');
+		header('Location: /admin/aluno');
+		exit;		
+
+	}else{
+
+		$_POST['matricula'] = '';
+
+		$_SESSION['alunoValues'] = $_POST;
+		
+		Aluno::setMessage("Matrícula já cadastrada no sistema!",'Aviso');
+		header('Location: /admin/cadastro/aluno');
+		exit;
+		//Aluno::setMessage("/admin/cadastro/aluno","",2);
+	}
 	
 });
 
@@ -178,26 +201,15 @@ $app->get('/admin/aluno/cadastro/verifica/:matricula_leitor',function($matricula
 
 	$num = $aluno->verifyMatricula($matricula_leitor);
 
-	 echo "<script> 
-
-	 	if(".$num." > 0){
-
-			alert('Matrícula já cadastrada no sistema!');
-
-			parent.document.getElementById('matricula').value = '';
-		
-		}
-	 </script>";
+	Aluno::setMessage("/admin/cadastro/aluno/","Matrícula já cadastrada no sistema!",2);
 
 	//print_r($aluno->getValues());
 
 });
 
 $app->get('/admin/aluno/card/:leiotr_id',function($leitor_id){
-
 	
 	User::verifyLogin();
-
 
 	$aluno = new Aluno();
 
@@ -209,7 +221,7 @@ $app->get('/admin/aluno/card/:leiotr_id',function($leitor_id){
 
 	$uri = "nome=".base64_encode($data['nome_leitor'])."&turma=".base64_encode($data['turma'])."&matricula=".base64_encode($data['matricula_leitor']);
 
-	echo '<script>window.location.assign("http://www.abelcoelho.com.br/gera_imagem.php?'.$uri.'");</script>';
+	echo '<script>window.location.assign("http://127.0.0.1/gera_imagem.php?'.$uri.'");</script>';
 
 });
 

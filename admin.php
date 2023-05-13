@@ -15,10 +15,10 @@ $_SESSION['config']['numLoan'] = Emprestimo::verifyLoan();
 
 $app->get('/admin', function() {
 
-	// if($_SESSION['config']['numLoan'] > 0){
+	if($_SESSION['config']['numLoan'] > 0){
 		
-	// 	Emprestimo::submitEmail();
-	// }
+		Emprestimo::submitEmail();
+	}
 
 	
 	User::verifyLogin();
@@ -43,10 +43,8 @@ $app->get('/admin/login', function(){
 $app->post('/admin/login', function(){
 
 	//print_r($_POST);exit;
-
 	
 	User::login($_POST['login'],$_POST['password']);
-
 
 	// header("Location: /admin");
 	// exit;

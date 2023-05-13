@@ -97,10 +97,10 @@
                             <td>{$value.titulo}</td>
                             <td>{$value.cod_tomb}</td>
                             <td>{$value.origem}</td>
-                            <td>{$value.data_aq}</td>
+                            <td>{function="formatDate($value.data_aq)"}</td>
                             <td>{$value.autor}</td>
                             <td>{$value.editora}</td>
-                            <td>{$value.data_publ}</td>
+                            <td>{function="formatDate($value.data_publ)"}</td>
                             <td>
                               <a href="/admin/emprestimo/item/{$value.item_id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Selecionar</a>
                             </td>

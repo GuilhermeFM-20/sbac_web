@@ -69,9 +69,9 @@
                             <td>{$value.origem}</td>
                             <td>{$value.autor}</td>
                             <td>{$value.editora}</td>
-                            <td>{$value.data_publ}</td>
+                            <td>{function="formatDate($value.data_publ)"}</td>
                             <td>
-                              <a href="/admin/cadastro/item/net/{$value.id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                              <a href="/admin/cadastro/item/net/{$value.id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Inserir</a>
                             </td>
                             </tr>
                         {/loop}

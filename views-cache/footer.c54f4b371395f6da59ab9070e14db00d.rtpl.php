@@ -1,10 +1,8 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?><footer class="main-footer">
     <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Anything you want
-    </div>
+  
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>SBAC - Escola Estadual Professor Abel Freire Coelho &copy; 2020</strong>
   </footer>
 
   <!-- Control Sidebar -->
@@ -89,12 +87,14 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../Res/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/views/adm/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../Res/admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="/views/adm/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../Res/admin/dist/js/app.min.js"></script>
-
+<script src="/views/adm/admin/dist/js/app.min.js"></script>
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="/views/adm/admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

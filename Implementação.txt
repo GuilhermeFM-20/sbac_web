@@ -1,10 +1,9 @@
 - Implementações do sistema SBAC 
-*~ Finalizar o envio dos emails dos empréstimos encerrados
-* Adicionar os relatórios de empréstimos no sistema
-    'Relatório de leitores'
 
-* Adicionar as máscaras dos campos nos cadastros
 * Verificar as estrutura do banco de dados
+* Adicionar div de histórico no sistema
+* Adicionar as mensagens de avisos
+* Adicionar a paginação na busca de livros online
 
 
 

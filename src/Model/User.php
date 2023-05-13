@@ -51,7 +51,7 @@ class User extends Model {
 
     public static function login($login, $password){
 
-        
+        //echo $password;exit;
 
         $sql = new Sql();
 
@@ -92,6 +92,7 @@ class User extends Model {
 
         }else{
 
+            //echo "123";exit;
             
            // throw new \Exception("Usuário inexistente ou senha inválida.");
             header("Location: /admin/login?verify_login=1");
@@ -218,7 +219,7 @@ class User extends Model {
 
                 $link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code= $code";
 
-                $mailer = new Mailer($data["desemail"],$data["desperson"], "Redefinir senha do Hcode Store", "forget",array(
+                $mailer = new Mailer($data["desemail"],$data["desperson"], "Redefinir senha do Hcode Store", "mailer",array(
                     "name"=>$data["desperson"],
                     "link"=>$link
                 ));

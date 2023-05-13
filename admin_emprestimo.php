@@ -290,7 +290,7 @@ $app->post('/admin/emprestimo/buscar/aluno',function(){
 
 $app->post('/admin/cadastra/emprestimo/:item_id/:leitor_id',function($item_id,$leitor_id){
 
-    //print_r($_SESSION);exit;
+   // print_r($_POST);exit;
 
     User::verifyLogin();
 
@@ -300,14 +300,13 @@ $app->post('/admin/cadastra/emprestimo/:item_id/:leitor_id',function($item_id,$l
 
     $verify = $empr->save($item_id,$leitor_id);
 
-   
 
     if($verify){
 
-        //echo "123";exit;
-
-        header("Location: /admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1");
+        //header("Location: /admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1?erro=Erro: Livro ou Leitor com empréstimo ativo!&tipo=Aviso");
        
+		Emprestimo::setMessage("/admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1","Livro ou Leitor com empréstimo ativo!",1);
+
         exit;
 
     }

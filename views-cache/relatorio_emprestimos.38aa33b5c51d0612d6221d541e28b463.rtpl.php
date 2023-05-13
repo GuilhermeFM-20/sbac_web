@@ -62,7 +62,7 @@
     
                         <div class="form-group">
                           <label for="nome">Nome do Aluno</label><br>
-                          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno">
+                          <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do aluno" style="width: 99%;">
                         </div>
                        
                       </div>

@@ -1,22 +1,7 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<script>
 
-    function verifica_matricula(){
-
-        var matr = document.getElementById('matricula').value;
-        
-        var frame = document.getElementById('frame_matricula');
-
-        frame.setAttribute('src','/admin/aluno/cadastro/verifica/'+matr);
-
-        alert(num);
-
-    }
-
-
-</script>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,6 +20,9 @@
     <!-- Main content -->
     <section class="content" >
     
+        
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-success">
@@ -43,6 +31,12 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
+                <!-- {if="$setMsg.msg != ''"}
+                    <div class="alert alert-success">
+                        {$setMsg.msg}
+                    </div>
+                {/if}   -->
+            {function="showMessage($setMsg.msg,$setMsg.tipo)"}
             <form role="form" action="/admin/cadastra/aluno" method="post">
 
                         <div class="box-body" >
@@ -50,36 +44,36 @@
                                 <div class="campos_form">
                                     <div class="form-group">
                                     <label for="desproduct">Nome</label><br>
-                                    <input type="text" class="form-control" id="nomr" name="nome" placeholder="Digite o nome" required>
+                                    <input type="text" class="form-control" id="nome" value="{$aluno.nome}" name="nome" placeholder="Digite o nome" required>
                                     </div>
                                     <div class="form-group">
                                     <label for="vlprice">Matrícula</label><br>
-                                    <input type="value" class="form-control" id="matricula" name="matricula" placeholder="Digite a matrícula escolar" onchange="verifica_matricula()" required>
+                                    <input type="value" class="form-control" id="matricula" value="{$aluno.matricula}" name="matricula" placeholder="Digite a matrícula escolar" onchange="verifica_matricula()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
                                     </div>
                                 </div>
                                 
                                 <div class="campos_form">
                                     <div class="form-group">
                                     <label for="vlwidth">Telefone</label>
-                                    <input type="text" class="form-control" id="telefone" name="telefone"  placeholder="(00) 00000-0000" required>
+                                    <input type="text" class="form-control" id="telefone" value="{$aluno.telefone}" name="telefone"   oninput="this.value = this.value.replace(/\D/g, '').replace(/^(\d{2})(\d{4,5})(\d{4})$/, '($1) $2-$3');" maxlength="12" required>
                                     </div>
                                     <div class="form-group">
                                     <label for="vlheight">Turma</label>
-                                    <input type="text" class="form-control" id="turma" name="turma" placeholder="Digite a turma e ano"  required>
+                                    <input type="text" class="form-control" id="turma" value="{$aluno.turma}" name="turma" placeholder="Digite a turma e ano"  required>
                                     </div>
                                 </div>
 
                                 <div class="campos_form">
                                     <div class="form-group">
                                         <label>Sexo</label>
-                                        <select class="form-control" name="sexo">
+                                        <select class="form-control" value="{$aluno.sexo}" name="sexo">
                                         <option>Masculino</option>
                                         <option>Feminino</option>
                                         </select>
                                         </div>
                                     <div class="form-group">
                                     <label for="desurl">E-mail</label>
-                                    <input type="mail" class="form-control" id="email" name="email" name="vlheight" placeholder="Digite o email para contato" required>
+                                    <input type="mail" class="form-control" id="email" value="{$aluno.email}" name="email"  placeholder="Digite o email para contato" required>
                                     </div>
                                 </div>
                         </div>

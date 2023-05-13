@@ -66,7 +66,7 @@
 
                         <div class="box-body" >
 
-                                <div class="campos_form">
+                                <!-- <div class="campos_form">
                                     <div class="form-group">
                                         <label for="titulo">Foto</label><br>
                                         <img src="<?php echo htmlspecialchars( $item["url_img"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 10%;"><br>
@@ -85,11 +85,40 @@
                                         <p><?php echo htmlspecialchars( $aluno["turma"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
                                     </div>
 
+                                </div> -->
+
+                                <div class="campos_form"  style="display: flex;">
+
+                                    <div class="form-group">
+                                        <label for="titulo">Foto:</label><br>
+                                        <img src="<?php echo htmlspecialchars( $item["url_img"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" style="width: 25%;"><br>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        
+                                        <label for="titulo">Título:</label><br>
+                                        <p><?php echo htmlspecialchars( $item["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
+                                        <label for="titulo">Código de Tombamento:</label><br>
+                                        <p><?php echo htmlspecialchars( $item["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <label for="titulo">Nome do Aluno:</label><br>
+                                        <p><?php echo htmlspecialchars( $aluno["nome_leitor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
+                                        <label for="titulo">Matrícula:</label><br>
+                                        <p><?php echo htmlspecialchars( $aluno["matricula_leitor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <label for="titulo">Turma:</label><br>
+                                        <p><?php echo htmlspecialchars( $aluno["turma"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
+                                    </div>
+                
                                 </div>
                                 
                                 <div class="form-group">
                                 <label for="data_devol">Data de Devolução</label>
-                                <input type="text" class="form-control" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
+                                <input type="date" class="form-control" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
                                 </div>
                                 
 

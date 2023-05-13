@@ -116,8 +116,8 @@
                             <td><?php echo htmlspecialchars( $value1["matricula_leitor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["dat_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["dat_dev"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td><?php echo formatDate($value1["dat_emp"]); ?></td>
+                            <td><?php echo formatDate($value1["dat_dev"]); ?></td>
                             <td>
                               <!-- <a href="/admin/devolucao_email/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-success btn-xs" title="Email Devolução"><i class="fa fa-calendar-plus-o"></i></a> -->
                               <?php if( $value1["status_devo"] == 0  ){ ?>

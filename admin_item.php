@@ -38,7 +38,8 @@ $app->get('/admin/item',function(){
 	$page->setTpl('item',[
 		"itens"=>$pagination['data'],
 		"pages"=>$pages,
-		"full_pages"=>count($pages)
+		"full_pages"=>count($pages),
+		'setMsg'=> User::getMessage()
 	]);
 
 });
@@ -74,7 +75,8 @@ $app->get('/admin/busca/item',function(){
 	$page->setTpl("item",[
 		"itens"=>$pagination['data'],
 		"pages"=>$pages,
-		"full_pages"=>count($pages)
+		"full_pages"=>count($pages),
+		'setMsg'=> User::getMessage()
 	]);
 		
 	
@@ -83,11 +85,20 @@ $app->get('/admin/busca/item',function(){
 
 $app->get('/admin/cadastro/item',function(){
 
+	
+	//print_r($_SESSION['itemValues']);
+
 	User::verifyLogin();
 
 	$page = new PageAdmin();
 
-	$page->setTpl('cadastro_item');
+	$page->setTpl('cadastro_item',[
+		'setMsg'=>Item::getMessage(),
+		'item'=>(isset($_SESSION['itemValues'])) ? $_SESSION['itemValues'] : ['titulo'=>'','cod_tomb'=>'','origem'=>'','data_aq'=>'','editora'=>'','data_publ'=>'','foto'=>'','descricao'=>'','autor'=>'']
+
+	]);
+
+	unset($_SESSION['itemValues']);
 
 });
 
@@ -104,7 +115,8 @@ $app->get('/admin/cadastro/item/net',function(){
 
 $app->post('/admin/cadastra/item',function(){
 
-   	///print_r($_POST);exit;
+   //	print_r($_POST);exit;
+
 
 	User::verifyLogin();
 
@@ -112,10 +124,24 @@ $app->post('/admin/cadastra/item',function(){
 
 	$item->setData($_POST);
 
-	$item->save();
+	if($item->save()){
+		//Aluno::setMessage("/admin/busca/aluno","",3);
 
-	header('Location: /admin/item');
-	exit;
+		Item::setMessage("Item cadastrado com sucesso.",'Sucesso');
+		header('Location: /admin/item');
+		exit;		
+
+	}else{
+
+		$_POST['cod_tomb'] = '';
+
+		$_SESSION['itemValues'] = $_POST;
+		
+		Item::setMessage("Código de tombamento já cadastrado no sistema!",'Aviso');
+		header('Location: /admin/cadastro/item');
+		exit;
+		//Aluno::setMessage("/admin/cadastro/aluno","",2);
+	}	
 
 });
 
@@ -203,16 +229,16 @@ $app->get('/admin/cadastro/item/net/:livro',function($livro){
 
 	//print_r($data);
 
+		
         $livros = array(
-			"id"=>$data['items'][0]['id'],
-            "titulo"=>$data['items'][0]['volumeInfo']['title'],
-            "autor"=>$data['items'][0]['volumeInfo']['authors'][0],
-            "origem"=>$data['items'][0]['saleInfo']['country'],
-            "editora"=>$data['items'][0]['volumeInfo']['publisher'],
-            "data_publ"=>$data['items'][0]['volumeInfo']['publishedDate'],
-			"descricao"=>$data['items'][0]['volumeInfo']['description'],
-            "foto"=>$data['items'][0]['volumeInfo']['imageLinks']['thumbnail']
-
+			"id"=>!array_key_exists('id',$data) ? $data['items'][0]['id'] : '', 
+            "titulo"=>!array_key_exists('title' ,$data) ? $data['items'][0]['volumeInfo']['title'] : '' , 
+            "autor"=>!array_key_exists('authors',$data) ? $data['items'][0]['volumeInfo']['authors'][0] : '' , 
+            "origem"=>!array_key_exists('country' ,$data) ? $data['items'][0]['saleInfo']['country'] : '', 
+            "editora"=>!array_key_exists('publisher' ,$data) ? $data['items'][0]['volumeInfo']['publisher'] : '' , 
+            "data_publ"=>!array_key_exists('publishedDate' ,$data) ? $data['items'][0]['volumeInfo']['publishedDate'] : '', 
+			"descricao"=>!array_key_exists('description',$data) ? $data['items'][0]['volumeInfo']['description'] : '', 
+            "foto"=> !array_key_exists('thumbnail' ,$data) ? $data['items'][0]['volumeInfo']['imageLinks']['thumbnail' ] : ''
         );
 
     //print_r($livros);exit;
@@ -253,38 +279,24 @@ $app->post('/admin/item/cadastro/buscar',function(){
 
 		for($i = 0; $i < count($data['items']); $i++){		
 
-			if(!array_key_exists("publisher",$data['items'][$i]['volumeInfo'])){
-				continue;
-			}
-			if(!array_key_exists("publishedDate",$data['items'][$i]['volumeInfo'])){
-				continue;
-			}
-			if(!array_key_exists("imageLinks",$data['items'][$i]['volumeInfo'])){
-				continue;
-			}
-			if(!array_key_exists("country",$data['items'][$i]['saleInfo'])){
-				continue;
-			}
-			if(!array_key_exists("thumbnail",$data['items'][$i]['volumeInfo']['imageLinks'])){
-				continue;
-			}
-			if(!array_key_exists("description",$data['items'][$i]['volumeInfo'])){
-				continue;
-			}
-			if(!array_key_exists("authors",$data['items'][$i]['volumeInfo'])){
-				continue;
-			}
+			try{
 
-			$livros[] = array(
-				"id"=>$data['items'][$i]['id'],
-				"titulo"=>$data['items'][$i]['volumeInfo']['title'],
-				"autor"=>$data['items'][$i]['volumeInfo']['authors'][0],
-				"origem"=>$data['items'][$i]['saleInfo']['country'],
-				"editora"=>$data['items'][$i]['volumeInfo']['publisher'],
-				"data_publ"=>$data['items'][$i]['volumeInfo']['publishedDate'],
-				"foto"=>$data['items'][$i]['volumeInfo']['imageLinks']['thumbnail']
-			
-			);
+				$livros[] = array(
+					"id"=>$data['items'][$i]['id'],
+					"titulo"=>$data['items'][$i]['volumeInfo']['title'],
+					"autor"=>$data['items'][$i]['volumeInfo']['authors'][0],
+					"origem"=>$data['items'][$i]['saleInfo']['country'],
+					"editora"=>$data['items'][$i]['volumeInfo']['publisher'],
+					"data_publ"=>$data['items'][$i]['volumeInfo']['publishedDate'],
+					"foto"=>$data['items'][$i]['volumeInfo']['imageLinks']['thumbnail']
+				
+				);
+
+			}catch(Exception $e){
+
+				continue;
+
+			}
 		
 		}
 	

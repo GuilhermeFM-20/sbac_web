@@ -97,10 +97,10 @@
                             <td><?php echo htmlspecialchars( $value1["titulo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["cod_tomb"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["origem"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["data_aq"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td><?php echo formatDate($value1["data_aq"]); ?></td>
                             <td><?php echo htmlspecialchars( $value1["autor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["editora"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td><?php echo formatDate($value1["data_publ"]); ?></td>
                             <td>
                               <a href="/admin/emprestimo/item/<?php echo htmlspecialchars( $value1["item_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Selecionar</a>
                             </td>

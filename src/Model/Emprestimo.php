@@ -6,6 +6,7 @@ use \SBAC\DB\Sql;
 use \SBAC\Model;
 use \SBAC\Mailer;
 use \SBAC\Model\User;
+use \SBAC\Model\Aluno;
 
 
 class Emprestimo extends Model{
@@ -19,7 +20,9 @@ class Emprestimo extends Model{
     }
 
     public function save($item_id,$leitor_id){
-    
+
+
+       // echo date("Y-m-d",strtotime($this->getdata_devol()));exit;
 
         $sql = new Sql();
 
@@ -29,8 +32,6 @@ class Emprestimo extends Model{
         ));
         
         if(!$num){
-
-            
 
             $results = $sql->query("INSERT INTO emprestimos VALUES(DEFAULT ,:data_emp,:data_dev,:item_id,:bib_id,:leitor_id,:status_devolucao,:status_empr) ", array(
                 ":data_emp"=>date("Y-m-d"),
@@ -45,10 +46,7 @@ class Emprestimo extends Model{
 
         }else{
 
-            // throw new \Exception("Empréstimo semelhante já cadastrado!.");
-
-            return true;
-            
+            return true;     
 
         }
         
@@ -58,16 +56,12 @@ class Emprestimo extends Model{
 
     public function update($empr_id){
     
-
         $sql = new Sql();
         
-        $sql->debugSql("UPDATE emprestimos  SET dat_dev = :data_devo WHERE id_emp = :id", array(
+        $sql->query("UPDATE emprestimos  SET dat_dev = :data_devo WHERE id_emp = :id", array(
             ":data_devo"=>date('Y-d-m',strtotime($this->getdata_devol())),
             ":id"=>$empr_id
         ));
-        exit;
-
-        
         
         //$this->setData($results[0]);
 
@@ -107,7 +101,6 @@ class Emprestimo extends Model{
     
 
     public function searchItens($page = 1, $itensForPages = 6){
-
 
         $start = ($page - 1) * $itensForPages;
 
@@ -157,7 +150,6 @@ class Emprestimo extends Model{
     public function searchEmprestimo(){
 
         //echo $this->getdataI();exit;
-
 
         $sql = new Sql();
 
@@ -226,7 +218,6 @@ class Emprestimo extends Model{
 
     public function getPages($page = 1, $itensForPages = 4){
 
-
         $start = ($page - 1) * $itensForPages;
 
         $sql = new Sql();
@@ -245,21 +236,24 @@ class Emprestimo extends Model{
 
     public static function submitEmail(){
 
-
         $sql = new Sql();
 
         $date = date('Y-m-d');
 
-        $results = $sql->select(" SELECT a.email_leitor,a.nome_leitor FROM leitor a,emprestimos b WHERE b.dat_dev <= '$date' AND b.status_devo = 0 AND b.status_empr = 1 GROUP BY b.id_emp");
+        $results = $sql->select(" SELECT * FROM emprestimos b,leitor a WHERE b.leitor_id = a.leitor_id AND b.dat_dev <= '$date' AND b.status_devo = 0 AND b.status_empr = 1 GROUP BY b.id_emp");
 
         //print_r($results);exit;
 
         foreach($results as $values){
 
-            $email = new Mailer($values['email_leitor'],$values['nome_leitor'],'Prazo de devolução encerrado!','mailer',array(
-                "name"=>$values['email_leitor'],
-                "link"=>"http://www.abelcoelho.com.br/admin"
+            //print_r(self::getEmpr($values['id_emp'])[0]);exit;
+
+            $email = new Mailer($values['email_leitor'],$values['nome_leitor'],'Prazo de devolu��o encerrado!','mailer',array(
+                "empr"=>self::getEmpr($values['id_emp'])[0]
             ));
+
+
+           $email->send();
 
         }
 

@@ -66,7 +66,7 @@
 
                         <div class="box-body" >
 
-                                <div class="campos_form">
+                                <!-- <div class="campos_form">
                                     <div class="form-group">
                                         <label for="titulo">Foto</label><br>
                                         <img src="{$item.url_img}" style="width: 10%;"><br>
@@ -85,11 +85,40 @@
                                         <p>{$aluno.turma}</p>
                                     </div>
 
+                                </div> -->
+
+                                <div class="campos_form"  style="display: flex;">
+
+                                    <div class="form-group">
+                                        <label for="titulo">Foto:</label><br>
+                                        <img src="{$item.url_img}" style="width: 25%;"><br>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        
+                                        <label for="titulo">Título:</label><br>
+                                        <p>{$item.titulo}</p>
+                                        <label for="titulo">Código de Tombamento:</label><br>
+                                        <p>{$item.cod_tomb}</p>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <label for="titulo">Nome do Aluno:</label><br>
+                                        <p>{$aluno.nome_leitor}</p>
+                                        <label for="titulo">Matrícula:</label><br>
+                                        <p>{$aluno.matricula_leitor}</p>
+                                    </div>
+                
+                                    <div class="form-group">
+                                        <label for="titulo">Turma:</label><br>
+                                        <p>{$aluno.turma}</p>
+                                    </div>
+                
                                 </div>
                                 
                                 <div class="form-group">
                                 <label for="data_devol">Data de Devolução</label>
-                                <input type="text" class="form-control" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
+                                <input type="date" class="form-control" id="data_devol" name="data_devol"  placeholder="Digite a data de devolução" required>
                                 </div>
                                 
 

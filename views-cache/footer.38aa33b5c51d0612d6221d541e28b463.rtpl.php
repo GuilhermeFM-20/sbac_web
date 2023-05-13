@@ -2,7 +2,8 @@
     <!-- To the right -->
   
     <!-- Default to the left -->
-    <strong>SBAC - Escola Estadual Professor Abel Freire Coelho &copy; 2020</strong>
+    <strong>SBAC - Escola Estadual Professor Abel Freire Coelho &copy; 2020 </strong>
+    <a href="https://adminlte.io" target="_blank">AdminLTE.io</a>
   </footer>
 
   <!-- Control Sidebar -->

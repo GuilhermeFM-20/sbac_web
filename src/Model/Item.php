@@ -30,21 +30,42 @@ class Item extends Model{
         // "data_publ:".$this->getdata_publ()."<br>".
         // "foto:".$this->getfoto();exit;
 
-        $sql = new Sql();
         
-        $results = $sql->query("INSERT INTO item VALUES(DEFAULT,:titulo,:origem,:data_aq,:data_publ,:autor,:cod_tomb,:editora,:foto,:descricao,:status_item) ", array(
-            ":titulo"=>$this->gettitulo(),
-            ":origem"=>$this->getorigem(),
-            ":data_aq"=>date("Y-m-d",strtotime($this->getdata_aq())),
-            ":autor"=>$this->getautor(),
-            ":cod_tomb"=>$this->getcod_tomb(),
-            ":editora"=>$this->geteditora(),
-            ":data_publ"=>date("Y-m-d",strtotime($this->getdata_publ())),
-            ":foto"=>$this->getfoto(),
-            ":descricao"=>$this->getdescricao(),
-            ":status_item"=>'1'
-        ));
 
+        $sql = new Sql();
+
+        $num = $this->verifyCodTomb($this->getcod_tomb());
+
+        //echo $num;exit;
+
+        if($num > 0){
+            return false;
+        }
+
+        //echo "3213";exit;
+    
+       // try{
+
+            $results = $sql->query("INSERT INTO item VALUES(DEFAULT,:titulo,:origem,:data_aq,:data_publ,:autor,:cod_tomb,:editora,:foto,:descricao,:status_item) ", array(
+                ":titulo"=>$this->gettitulo(),
+                ":origem"=>$this->getorigem(),
+                ":data_aq"=>date("Y-m-d",strtotime($this->getdata_aq())),
+                ":autor"=>$this->getautor(),
+                ":cod_tomb"=>$this->getcod_tomb(),
+                ":editora"=>$this->geteditora(),
+                ":data_publ"=>date("Y-m-d",strtotime($this->getdata_publ())),
+                ":foto"=>$this->getfoto(),
+                ":descricao"=>$this->getdescricao(),
+                ":status_item"=>'1'
+            ));
+
+        // }catch(\Exception $e){
+
+        //     return false;
+            
+        // }
+
+        return true;
         
         //$this->setData($results[0]);
 

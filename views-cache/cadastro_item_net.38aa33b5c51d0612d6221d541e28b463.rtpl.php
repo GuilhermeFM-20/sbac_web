@@ -69,9 +69,9 @@
                             <td><?php echo htmlspecialchars( $value1["origem"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["autor"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                             <td><?php echo htmlspecialchars( $value1["editora"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-                            <td><?php echo htmlspecialchars( $value1["data_publ"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                            <td><?php echo formatDate($value1["data_publ"]); ?></td>
                             <td>
-                              <a href="/admin/cadastro/item/net/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+                              <a href="/admin/cadastro/item/net/<?php echo htmlspecialchars( $value1["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Inserir</a>
                             </td>
                             </tr>
                         <?php } ?>

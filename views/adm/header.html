@@ -167,6 +167,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
       
     }
 
+    .modal-header{
+
+      animation-duration: 1s;
+      animation-name: slidein;
+      
+
+    }
+
+    @keyframes slidein {
+    from {
+      margin-top: 200%;
+      width: 100%;
+      
+    }
+
+    to {
+      margin-top: 0%;
+      width: 100%;
+    }
+  }
     
     
     
@@ -174,41 +194,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </style>
 
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="path-para-seu-script"></script>
-    <script>
 
-      function abreModal(type,text){
-
-          //alert('123');exit;
-
-          $('#exampleModalLive').modal('show');
-
-          // var modal = document.getElementById('modal-content');
-
-          // switch(type){
-
-          // case 'Aviso':
-          
-          //     modal.style.backgroundColor = '#F7DC6F';
-
-          // break;
-          // case 'Error':
-
-          //     modal.style.backgroundColor = '#E74C3C';
-
-          // break;
-          // case 'Sucesso':
-
-          //     modal.style.backgroundColor = '#2ECC71';
-
-          // break;
-
-          // }
-
-      }
-
-
-    </script>
+    <!-- <script src="path-para-seu-script"></script> -->
+    
+  
 
 </head>
 <!--
@@ -241,8 +230,11 @@ desired effect
   <!-- Main Header -->
   <header class="main-header" >
 
+
+    
+
     <!-- Logo -->
-    <a href="/admin" class="logo" style="background-color:#183f95">
+    <a href="/admin" class="logo" style="background-color:#183f95;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       
 
@@ -380,7 +372,7 @@ desired effect
             </a>
             <ul class="dropdown-menu"  style="height:100px;">
               <!-- The user image in the menu -->
-              <li class="user-header" style="background-color: #101fa3;">
+              <li class="user-header" style="background-color: #101fa3; ">
                 {if="$_SESSION[User][foto] == ''"}
                 <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
                 {else}
@@ -435,11 +427,11 @@ desired effect
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
-        <div class="pull-left image">
+        <div class="pull-left image"  >
           {if="$_SESSION[User][foto] == ''"}
-            <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image">
+            <img src="/views/adm/admin/dist/img/pda.png" class="img-circle" alt="User Image" >
           {else}
-            <img src="/{$_SESSION[User][foto]}" class="img-circle" alt="User Image">
+            <img src="/{$_SESSION[User][foto]}" class="img-circle" alt="User Image"  >
           {/if}
 
         </div>
@@ -514,10 +506,96 @@ desired effect
     <!-- /.sidebar -->
   </aside>
 
-  {if="isset($_GET[erro])"}
-      <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-ban"></i> Alerta!</h4>
-          {$_GET[erro]}  
+
+    
+  <script>
+
+    function modalMsg(){
+
+      
+      let modal = document.getElementById('modal');
+      let modal_h = document.getElementById('modal-content');
+      
+      modal.style.display = 'block';
+      
+      const timer = setInterval(function() {
+          modal.style.display = 'none';
+      }, 3000);
+
+    }
+
+</script>
+
+
+
+{if="isset($setMsg)"}
+
+{if="$setMsg.msg != ''"}
+<div class="alert alert-success">
+    {$setMsg.msg}
+</div>
+{/if} 
+
+  {if="isset($setMsg.tipo)"}
+    {if="$setMsg.tipo == 'Sucesso'"}
+
+    
+    <div class="modal modal-success fade in" id="modal" style="display: none; padding-right: 15px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span></button>
+              <h4 class="modal-title">{$setMsg.tipo}</h4>
+              </div>
+              <div class="modal-body">
+              <p>{$setMsg.msg}</p>
+              </div>
+            <div class="modal-footer">
+          </div>
+        </div>
       </div>
+    </div>
+    {/if}
+    {if="$setMsg.tipo == 'Erro'"}
+    <div class="modal modal-danger fade in" id="modal" style="display: none; padding-right: 15px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"></span></button>
+            <h4 class="modal-title">{$setMsg.tipo}</h4>
+            </div>
+            <div class="modal-body">
+            <p>{$setMsg.msg}</p>
+            </div>
+            <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    {/if}
+    {if="$setMsg.tipo == 'Aviso'"}
+    <div class="modal modal-warning fade in" id="modal" style="display: none; padding-right: 15px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span></button>
+              <h4 class="modal-title">{$setMsg.tipo}</h4>
+              </div>
+              <div class="modal-body">
+              <p>{$setMsg.msg}</p>
+              </div>
+            <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    {/if}
   {/if}
+  
+  <script>
+    modalMsg();
+  </script>
+{/if}
