@@ -145,30 +145,6 @@ $app->post('/admin/cadastra/item',function(){
 
 });
 
-$app->get('/admin/item/cadastro/verifica/:cod_tomb',function($cod_tomb){
-
-	User::verifyLogin();
-
-	$item = new Item();
-
-	$num = $item->verifyCodTomb($cod_tomb);
-
-	 echo "<script> 
-
-	 	if(".$num." > 0){
-
-			alert('Código já cadastrado no sistema!');
-
-			parent.document.getElementById('cod_tomb').value = '';
-		
-		}
-	 </script>";
-
-	//print_r($item->getValues());
-
-});
-
-
 
 $app->get('/admin/item/:item_id',function($item_id){
 
@@ -201,6 +177,8 @@ $app->post('/admin/item/:item_id',function($item_id){
 	$item->setData($_POST);
 
 	$item->update((int)$item_id);
+
+	Aluno::setMessage("Registro atualizado com sucesso.",'Sucesso');
 
 	header('Location: /admin/item');
 	
@@ -246,7 +224,8 @@ $app->get('/admin/cadastro/item/net/:livro',function($livro){
 	$page = new PageAdmin();
 
 	$page->setTpl('modifica_item_net',[
-		"livros"=>$livros
+		"livros"=>$livros,
+		"setMsg"=>Item::getMessage()
 	]);
 
 	//print_r($item->getValues());
@@ -314,11 +293,13 @@ $app->post('/admin/item/cadastro/buscar',function(){
 
 $app->get('/admin/item/:item_id/delete',function($item_id){
 
+	//echo $item_id;exit;
+
 	User::verifyLogin();
 
 	$item = new Item();
 
-	$item->delet((int)$item_id);
+	$item->delete((int)$item_id);
 
 	header("Location: /admin/item");
 	exit;

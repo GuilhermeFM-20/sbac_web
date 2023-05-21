@@ -103,7 +103,7 @@
                             <td><?php echo formatDate($value1["data_publ"]); ?></td>
                             <td>
                               <a href="/admin/item/<?php echo htmlspecialchars( $value1["item_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                              <a href="/admin/item/<?php echo htmlspecialchars( $value1["item_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                              <?php echo showMessageInput('Deseja realmente excluir este registro?','Aviso','/admin/item/[id]/delete',$value1["item_id"]); ?>
                             </td>
                             </tr>
                         <?php } ?>

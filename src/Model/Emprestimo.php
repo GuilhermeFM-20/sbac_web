@@ -26,7 +26,7 @@ class Emprestimo extends Model{
 
         $sql = new Sql();
 
-        $num = $sql->numRow("SELECT * FROM `emprestimos` WHERE item_id = :item_id OR leitor_id = :leitor_id",array(
+        $num = $sql->numRow("SELECT * FROM `emprestimos` WHERE (item_id = :item_id OR leitor_id = :leitor_id) AND status_empr = 1 AND status_devo = 0",array(
             ":item_id"=>$item_id,
             ":leitor_id"=>$leitor_id
         ));
@@ -59,7 +59,7 @@ class Emprestimo extends Model{
         $sql = new Sql();
         
         $sql->query("UPDATE emprestimos  SET dat_dev = :data_devo WHERE id_emp = :id", array(
-            ":data_devo"=>date('Y-d-m',strtotime($this->getdata_devol())),
+            ":data_devo"=>date('Y-m-d',strtotime($this->getdata_devol())),
             ":id"=>$empr_id
         ));
         
@@ -67,7 +67,7 @@ class Emprestimo extends Model{
 
     }
 
-    public function delet($id_empr){
+    public function delete($id_empr){
 
         $sql = new Sql();
 
@@ -259,6 +259,73 @@ class Emprestimo extends Model{
 
 
     }
+
+    public function searchItemEmpr($page = 1, $itensForPages = 2){
+
+
+        $start = ($page - 1) * $itensForPages;
+
+        $sql = new Sql();
+
+        $busca = null;
+
+        if($this->gettitulo()){
+
+            $busca .= " AND titulo LIKE '%".trim($this->gettitulo())."%'";
+
+        }
+        
+        if($this->getcod_tomb()){
+
+            $busca .= " AND cod_tomb = '".$this->getcod_tomb()."'";
+
+        }
+
+        $results = $sql->select("SELECT * FROM item WHERE status_item = 1 AND item_id NOT IN (SELECT item_id FROM emprestimos WHERE status_empr = 1 AND status_devo = 0) $busca LIMIT $start,$itensForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1 AND item_id NOT IN (SELECT item_id FROM emprestimos WHERE status_empr = 1  AND status_devo = 0)  $busca");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $itensForPages) + 1
+        ];
+
+    }
+
+    public function searchAlunoEmpr($page = 1, $alunosForPages = 6){
+
+
+        $start = ($page - 1) * $alunosForPages;
+
+        $sql = new Sql();
+
+        $busca = null;
+
+        if($this->getnome()){
+
+            $busca .= " AND nome_leitor LIKE '%".trim($this->getnome())."%'";
+
+        }
+        
+        if($this->getmatricula()){
+
+            $busca .= " AND matricula_leitor = '".$this->getmatricula()."'";
+
+        }
+
+        $results =  $sql->select("SELECT * FROM leitor WHERE status_leitor = 1 AND leitor_id NOT IN (SELECT leitor_id FROM emprestimos WHERE status_empr = 1 AND status_devo = 0)  $busca LIMIT $start,$alunosForPages");
+
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM leitor WHERE status_leitor = 1 AND leitor_id NOT IN (SELECT leitor_id FROM emprestimos WHERE status_empr = 1 AND status_devo = 0)  $busca");
+
+        return [
+            "data"=>$results,
+            "total"=>(int)$resultTotal[0]['nrtotal'],
+            "pages"=>ceil($resultTotal[0]['nrtotal'] / $alunosForPages) + 1
+        ];
+
+    }
+
     
 
 }

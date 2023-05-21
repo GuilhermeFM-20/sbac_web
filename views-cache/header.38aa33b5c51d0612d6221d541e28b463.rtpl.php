@@ -412,9 +412,9 @@ desired effect
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-history"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -505,97 +505,3 @@ desired effect
     </section>
     <!-- /.sidebar -->
   </aside>
-
-
-    
-  <script>
-
-    function modalMsg(){
-
-      
-      let modal = document.getElementById('modal');
-      let modal_h = document.getElementById('modal-content');
-      
-      modal.style.display = 'block';
-      
-      const timer = setInterval(function() {
-          modal.style.display = 'none';
-      }, 3000);
-
-    }
-
-</script>
-
-
-
-<?php if( isset($setMsg) ){ ?>
-
-<?php if( $setMsg["msg"] != '' ){ ?>
-<div class="alert alert-success">
-    <?php echo htmlspecialchars( $setMsg["msg"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
-</div>
-<?php } ?> 
-
-  <?php if( isset($setMsg["tipo"]) ){ ?>
-    <?php if( $setMsg["tipo"] == 'Sucesso' ){ ?>
-
-    
-    <div class="modal modal-success fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span></button>
-              <h4 class="modal-title"><?php echo htmlspecialchars( $setMsg["tipo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h4>
-              </div>
-              <div class="modal-body">
-              <p><?php echo htmlspecialchars( $setMsg["msg"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
-              </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-    <?php if( $setMsg["tipo"] == 'Erro' ){ ?>
-    <div class="modal modal-danger fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span></button>
-            <h4 class="modal-title"><?php echo htmlspecialchars( $setMsg["tipo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h4>
-            </div>
-            <div class="modal-body">
-            <p><?php echo htmlspecialchars( $setMsg["msg"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
-            </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-    <?php if( $setMsg["tipo"] == 'Aviso' ){ ?>
-    <div class="modal modal-warning fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span></button>
-              <h4 class="modal-title"><?php echo htmlspecialchars( $setMsg["tipo"], ENT_COMPAT, 'UTF-8', FALSE ); ?></h4>
-              </div>
-              <div class="modal-body">
-              <p><?php echo htmlspecialchars( $setMsg["msg"], ENT_COMPAT, 'UTF-8', FALSE ); ?></p>
-              </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php } ?>
-  <?php } ?>
-  
-  <script>
-    modalMsg();
-  </script>
-<?php } ?>

@@ -116,11 +116,11 @@ $app->get('/admin/emprestimo/item/:item_id',function($item_id){
 
 	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
-	$aluno = new Aluno();
+	$empr = new Emprestimo();
 
-	$aluno->setData($_GET);
+	$empr->setData($_GET);
 
-	$pagination = $aluno->searchAluno($page,6);
+	$pagination = $empr->searchAlunoEmpr($page,6);
 
 
 	$pages = [];
@@ -242,11 +242,11 @@ $app->get('/admin/emprestimo/buscar/item',function(){
 	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
 
-	$item = new Item();
+	$empr = new Emprestimo();
 
-	$item->setData($_GET);
+	$empr->setData($_GET);
 
-	$pagination = $item->searchItem($page,3);
+	$pagination = $empr->searchItemEmpr($page,5);
 
 	$pages = [];
 
@@ -298,18 +298,18 @@ $app->post('/admin/cadastra/emprestimo/:item_id/:leitor_id',function($item_id,$l
 
     $empr->setData($_POST);
 
-    $verify = $empr->save($item_id,$leitor_id);
+    $empr->save($item_id,$leitor_id);
 
 
-    if($verify){
+    // if($verify){
 
-        //header("Location: /admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1?erro=Erro: Livro ou Leitor com empréstimo ativo!&tipo=Aviso");
+    //     //header("Location: /admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1?erro=Erro: Livro ou Leitor com empréstimo ativo!&tipo=Aviso");
        
-		Emprestimo::setMessage("/admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1","Livro ou Leitor com empréstimo ativo!",1);
+	// 	Emprestimo::setMessage("/admin/cadastro/emprestimo/aluno/$leitor_id/$item_id/1","Livro ou Leitor com empréstimo ativo!",1);
 
-        exit;
+    //     exit;
 
-    }
+    // }
 
     header('Location: /admin/emprestimo');
     exit;
@@ -342,7 +342,8 @@ $app->get('/admin/renovacao/:empr_id',function($empr_id){
     //print_r($empr);exit;
 
     $page->setTpl('renovacao_item',[
-        "empr"=>$empr[0]
+        "empr"=>$empr[0],
+		'setMsg'=> Emprestimo::getMessage()
     ]);
 
 });
@@ -352,6 +353,18 @@ $app->post('/admin/renovacao/item',function(){
    //print_r($_POST);exit;
 
     User::verifyLogin();
+
+	echo !isset($_POST['data_devol'])." && ".strtotime($_POST['data_devol'])." < ".strtotime(date('Y-m-d'));
+
+	if(isset($_POST['data_devol']) && strtotime($_POST['data_devol']) < strtotime(date('Y-m-d'))){
+
+		
+
+		Emprestimo::setMessage('A data de renovação não pode ser antiga.','Aviso');
+		header('Location: /admin/renovacao/'.$_POST['empr_id']);
+    	exit;
+
+	}
 
     $empr = new Emprestimo();
 
@@ -370,7 +383,7 @@ $app->get('/admin/emprestimo/:id_empr/delete',function($empr_id){
 
     $empr = new Emprestimo();
 
-    $empr->delet((int)$empr_id);
+    $empr->delete((int)$empr_id);
 
     header('Location: /admin/emprestimo');
     exit;

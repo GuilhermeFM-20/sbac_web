@@ -1,5 +1,6 @@
 - Implementações do sistema SBAC 
 
+V Adicionar as máscaras dos campos nos cadastros
 * Verificar as estrutura do banco de dados
 * Adicionar div de histórico no sistema
 * Adicionar as mensagens de avisos

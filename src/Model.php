@@ -43,30 +43,6 @@ class Model{
         return $this->values;
 
     }
-
-    // public static function setMessage($location,$message,$type){
-
-    //     switch($type){
-    //         case 1: 
-    //             $type = "Aviso";
-    //             break;
-    //         case 2: 
-    //             $type = "Erro";
-    //             break;
-    //         case 3: 
-    //             $type = "Sucesso";
-    //             break;
-    //         default:
-    //             throw new \Exception("Tipo do valor desconhecido!");
-    //             break; 
-    //     }
-
-       
-
-    //     header("Location: ".$location."?erro=".urlencode($message)."&tipo=".$type);
-
-    // }
-     
     
 	public static function setMessage($msg,$tipo){
 

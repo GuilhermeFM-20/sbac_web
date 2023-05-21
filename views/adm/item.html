@@ -103,7 +103,7 @@
                             <td>{function="formatDate($value.data_publ)"}</td>
                             <td>
                               <a href="/admin/item/{$value.item_id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                              <a href="/admin/item/{$value.item_id}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                              {function="showMessageInput('Deseja realmente excluir este registro?','Aviso','/admin/item/[id]/delete',$value.item_id)"}
                             </td>
                             </tr>
                         {/loop}

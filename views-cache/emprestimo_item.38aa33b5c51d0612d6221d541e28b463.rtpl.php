@@ -125,9 +125,11 @@
                               <?php } ?>
 
                               <?php if( $value1["status_devo"] == 0  ){ ?>
-                              <a href="/admin/devolucao/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa  fa-dropbox"></i></a> 
+                              <!-- <a href="/admin/devolucao/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-info  btn-xs" onclick="confirm('Será efetuada a devolução do item.')"title="Devolução"><i class="fa  fa-dropbox"></i></a>  -->
+                              <?php echo showMessageInput('Deseja efetuar a devolução do item?','Aviso','/admin/devolucao/[id]',$value1["id_emp"],'btn-info','fa-dropbox','Devolução',''); ?>
                               <?php } ?>
-                              <a href="/admin/emprestimo/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                              <?php echo showMessageInput('Deseja realmente excluir este registro?','Aviso','/admin/emprestimo/[id]/delete',$value1["id_emp"],'btn-danger','fa-trash','Excluir','Excluir'); ?>
+                              <!-- <a href="/admin/emprestimo/<?php echo htmlspecialchars( $value1["id_emp"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a> -->
                             </td>
                             </tr>
                         <?php } ?>

@@ -70,7 +70,7 @@ class Aluno extends Model{
 
     }
 
-    public function delet($id_leitor){
+    public function delete($id_leitor){
 
         $sql = new Sql();
 

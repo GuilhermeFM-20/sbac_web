@@ -82,7 +82,7 @@
                           <td>
                             <a href="/admin/aluno/card/<?php echo htmlspecialchars( $value1["leitor_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-credit-card"></i></a>
                             <a href="/admin/aluno/<?php echo htmlspecialchars( $value1["leitor_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                            <a href="/admin/aluno/<?php echo htmlspecialchars( $value1["leitor_id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                            <?php echo showMessageInput('Deseja realmente excluir este registro?','Aviso','/admin/aluno/[id]/delete',$value1["leitor_id"]); ?>
                           </td>
                           </tr>
                       <?php } ?>

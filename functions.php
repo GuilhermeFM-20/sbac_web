@@ -97,20 +97,28 @@ function showMessage($msg,$tipo){
             
             const timer = setInterval(function() {
                 modal.style.display = "none";
-            }, 3000);
+            }, 5000);
 
+        }
+
+        function closeModal(){
+            let modal = document.getElementById("modal");        
+            modal.style.display = "none";
         }
 
         </script> 
 
         <div class="modal modal-'.$type.' fade in" id="modal" style="display: none; padding-right: 15px;">
+            
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"></span></button>
-                <h4 class="modal-title">'.$tipo.'</h4>
-                </div>
+            <div class="modal-header" style="display:flex;">
+                        <h4 class="modal-title">'.$tipo.'</h4>
+                        <button type="button" class="close" data-dismiss="modal" onClick="closeModal()" aria-label="Close" style="    text-align: right;
+                        padding-left: 86%;">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                 <div class="modal-body">
                 <p>'.$msg.'</p>
                 </div>
@@ -119,6 +127,7 @@ function showMessage($msg,$tipo){
             </div>
         </div>
         </div>
+
         <script>
             modalMsg();
         </script>
@@ -129,4 +138,106 @@ function showMessage($msg,$tipo){
        
     
 }
+
+
+function showMessageInput($msg,$tipo,$rota,$id,$estilo,$icone,$titulo,$texto){
+
+    if($msg != '' && $tipo != ''){
+    
+        switch($tipo){
+            case 'Aviso': 
+                $type = "warning";
+                break;
+            case 'Erro': 
+                $type = "error";
+                break;
+            case 'Sucesso': 
+                $type = "success";
+                break;
+            default:
+                $type = "warning";
+                break; 
+        }
+
+
+        $rota = str_replace('[id]',$id,$rota);
+
+        echo'
+
+        <script>
+
+            function modalMsgInput'.$id.'(){
+            
+                let modal = document.getElementById("modal'.$id.'");
+            
+                modal.style.display = "block";
+
+            }
+
+            function closeModal'.$id.'(){
+
+                let modal = document.getElementById("modal'.$id.'");        
+                modal.style.display = "none";
+
+            }
+
+        </script> 
+
+        <style>
+
+            #btn_alert{
+
+                background:#db8b0b; 
+                border-color:white;
+                width:10%;
+
+            }
+
+            #btn_alert:hover{
+
+                background:white !important;
+
+            }
+
+            a{
+
+                color:white;
+
+            }
+        
+        </style>
+
+        <div class="modal modal-'.$type.' fade in" id="modal'.$id.'" style="display: none; padding-right: 15px;">          
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="display:flex;">
+                        <h4 class="modal-title">'.$tipo.'</h4>
+                        <button type="button" class="close" data-dismiss="modal'.$id.'" onClick="closeModal'.$id.'()" aria-label="Close" style="    text-align: right;
+                        padding-left: 90%;">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                    <p>'.$msg.'</p>
+                    </div>
+
+                    <div class="modal-footer justify-content-between">
+                        <a  href="'.$rota.'" id="btn_alert" class="btn btn-outline-light" data-dismiss="modal">Sim</a>
+                        <button type="button" onClick="closeModal'.$id.'()" id="btn_alert" class="btn btn-outline-light">Não</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="javascript:modalMsgInput'.$id.'();" class="btn '.$estilo.' btn-xs" title="'.$titulo.'"><i class="fa '.$icone.'"></i> '.$texto.'</button>
+            
+        ';
+
+    
+    }
+       
+    
+}
+
 

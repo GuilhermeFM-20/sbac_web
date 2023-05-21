@@ -36,7 +36,9 @@
                         <?php echo htmlspecialchars( $setMsg["msg"], ENT_COMPAT, 'UTF-8', FALSE ); ?>
                     </div>
                 <?php } ?>   -->
+                    
             <?php echo showMessage($setMsg["msg"],$setMsg["tipo"]); ?>
+
             <form role="form" action="/admin/cadastra/aluno" method="post">
 
                         <div class="box-body" >

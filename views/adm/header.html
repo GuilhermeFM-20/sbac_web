@@ -412,9 +412,9 @@ desired effect
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-history"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -505,97 +505,3 @@ desired effect
     </section>
     <!-- /.sidebar -->
   </aside>
-
-
-    
-  <script>
-
-    function modalMsg(){
-
-      
-      let modal = document.getElementById('modal');
-      let modal_h = document.getElementById('modal-content');
-      
-      modal.style.display = 'block';
-      
-      const timer = setInterval(function() {
-          modal.style.display = 'none';
-      }, 3000);
-
-    }
-
-</script>
-
-
-
-{if="isset($setMsg)"}
-
-{if="$setMsg.msg != ''"}
-<div class="alert alert-success">
-    {$setMsg.msg}
-</div>
-{/if} 
-
-  {if="isset($setMsg.tipo)"}
-    {if="$setMsg.tipo == 'Sucesso'"}
-
-    
-    <div class="modal modal-success fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span></button>
-              <h4 class="modal-title">{$setMsg.tipo}</h4>
-              </div>
-              <div class="modal-body">
-              <p>{$setMsg.msg}</p>
-              </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    {/if}
-    {if="$setMsg.tipo == 'Erro'"}
-    <div class="modal modal-danger fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"></span></button>
-            <h4 class="modal-title">{$setMsg.tipo}</h4>
-            </div>
-            <div class="modal-body">
-            <p>{$setMsg.msg}</p>
-            </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    {/if}
-    {if="$setMsg.tipo == 'Aviso'"}
-    <div class="modal modal-warning fade in" id="modal" style="display: none; padding-right: 15px;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"></span></button>
-              <h4 class="modal-title">{$setMsg.tipo}</h4>
-              </div>
-              <div class="modal-body">
-              <p>{$setMsg.msg}</p>
-              </div>
-            <div class="modal-footer">
-          </div>
-        </div>
-      </div>
-    </div>
-    {/if}
-  {/if}
-  
-  <script>
-    modalMsg();
-  </script>
-{/if}

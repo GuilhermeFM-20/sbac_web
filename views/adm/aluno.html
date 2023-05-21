@@ -82,7 +82,7 @@
                           <td>
                             <a href="/admin/aluno/card/{$value.leitor_id}" class="btn btn-success btn-xs" target="_blank"><i class="fa fa-credit-card"></i></a>
                             <a href="/admin/aluno/{$value.leitor_id}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                            <a href="/admin/aluno/{$value.leitor_id}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                            {function="showMessageInput('Deseja realmente excluir este registro?','Aviso','/admin/aluno/[id]/delete',$value.leitor_id)"}
                           </td>
                           </tr>
                       {/loop}

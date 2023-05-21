@@ -1,23 +1,5 @@
 
 
-<!-- Content Wrapper. Contains page content -->
-<script>
-
-    function verifica_tomb(){
-
-        var tomb = document.getElementById('cod_tomb').value;
-        
-        var frame = document.getElementById('frame_tomb');
-
-        frame.setAttribute('src','/admin/item/cadastro/verifica/'+tomb);
-
-        alert(num);
-
-    }
-    
-
-</script>
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -45,6 +27,9 @@
             </div>
                 <!-- /.box-header -->
                 <!-- form start -->
+
+            {function="showMessage($setMsg.msg,$setMsg.tipo)"}
+            
             <form role="form" action="/admin/cadastra/item" method="post">
 
                         <div class="box-body" >
@@ -56,7 +41,7 @@
                                     </div>
                                     <div class="form-group">
                                     <label for="cod_tomb">Código de Tombamento</label><br>
-                                    <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código"  onchange="verifica_tomb()" required>
+                                    <input type="value" class="form-control" id="cod_tomb" name="cod_tomb" placeholder="Digite o código" required>
                                     </div>
                                 </div>
                                 

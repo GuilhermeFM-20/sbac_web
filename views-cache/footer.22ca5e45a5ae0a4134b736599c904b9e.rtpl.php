@@ -8,7 +8,7 @@
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         <script>
                             document.write(new Date().getFullYear());
-                        </script> E.E Professor Abel freire Coelho | Rua Dr. João Marcelino
+                        </script> E.E Professor Abel freire Coelho | Rua Dr. João Marcelino 
 
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>

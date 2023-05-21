@@ -12,6 +12,8 @@ use \SBAC\PageAdmin;
 
 $app->get('/admin/aluno', function(){
 
+	
+
 	User::verifyLogin();
 
 	$page = (isset($_GET['page']) ? (int)$_GET['page'] : 1);
@@ -24,8 +26,6 @@ $app->get('/admin/aluno', function(){
 	$aluno = new Aluno();
 
 	$pagination = $aluno->getPages($page,7);
-
-	
 
 	$pages = [];
 
@@ -82,7 +82,7 @@ $app->get('/admin/busca/aluno',function(){
 		"full_pages"=>count($pages),
 		'setMsg'=> User::getMessage()
 	]);
-		
+	
 
 });
 
@@ -133,7 +133,7 @@ $app->post('/admin/cadastra/aluno',function(){
 
 		$_SESSION['alunoValues'] = $_POST;
 		
-		Aluno::setMessage("Matrícula já cadastrada no sistema!",'Aviso');
+		Aluno::setMessage("Matrícula já cadastrada no sistema.",'Aviso');
 		header('Location: /admin/cadastro/aluno');
 		exit;
 		//Aluno::setMessage("/admin/cadastro/aluno","",2);
@@ -147,8 +147,8 @@ $app->get('/admin/aluno/:leitor_id/delete',function($leitor_id){
 
 	$aluno = new Aluno();
 
-	$aluno->delet((int)$leitor_id);
-
+	$aluno->delete((int)$leitor_id);
+	
 	header("Location: /admin/aluno");
 	exit;
 
@@ -186,6 +186,8 @@ $app->post('/admin/aluno/:leiotr_id',function($leiotr_id){
 
 	$aluno->update((int)$leiotr_id);
 
+	Aluno::setMessage("Registro atualizado com sucesso.",'Sucesso');
+
 	header('Location: /admin/aluno');
 	
 	exit;
@@ -193,19 +195,6 @@ $app->post('/admin/aluno/:leiotr_id',function($leiotr_id){
 
 });
 
-$app->get('/admin/aluno/cadastro/verifica/:matricula_leitor',function($matricula_leitor){
-
-	User::verifyLogin();
-
-	$aluno = new Aluno();
-
-	$num = $aluno->verifyMatricula($matricula_leitor);
-
-	Aluno::setMessage("/admin/cadastro/aluno/","Matrícula já cadastrada no sistema!",2);
-
-	//print_r($aluno->getValues());
-
-});
 
 $app->get('/admin/aluno/card/:leiotr_id',function($leitor_id){
 	

@@ -95,7 +95,7 @@ class Item extends Model{
 
     }
 
-    public function delet($id_item){
+    public function delete($id_item){
 
         $sql = new Sql();
 
@@ -154,7 +154,7 @@ class Item extends Model{
 
         $sql = new Sql();
 
-        $results = $sql->select("SELECT * FROM item WHERE status_item = 1 LIMIT $start, $itemsForPages");
+        $results = $sql->select("SELECT * FROM emprestimo,item WHERE  status_item = 1 LIMIT $start, $itemsForPages");
 
         $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1 ");
 
@@ -189,7 +189,7 @@ class Item extends Model{
 
         $results = $sql->select("SELECT * FROM item WHERE status_item = 1 $busca LIMIT $start,$itensForPages");
 
-        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1  $busca");
+        $resultTotal = $sql->select("SELECT COUNT(*) as nrtotal FROM item WHERE status_item = 1 $busca");
 
         return [
             "data"=>$results,
